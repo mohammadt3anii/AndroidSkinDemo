@@ -161,7 +161,7 @@ public class SkinPreferencesManager {
     }
 
     /**
-     * 初始化,单例模式,只需要初始化一次
+     * 初始化,单例模式,只需要初始化一次,已在{@link SkinManager#SkinManager}中初始化。
      *
      * @param context the context
      */

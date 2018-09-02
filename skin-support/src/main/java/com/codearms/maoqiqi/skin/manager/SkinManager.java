@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.codearms.maoqiqi.skin.app.SkinActivityLifecycleCallbacks;
 import com.codearms.maoqiqi.skin.app.SkinLayoutInflater;
 import com.codearms.maoqiqi.skin.loader.LoadPlugInSkinTask;
 import com.codearms.maoqiqi.skin.observe.SkinObservable;
@@ -165,6 +166,7 @@ public class SkinManager extends SkinObservable {
     private SkinManager(Application application) {
         super();
         this.contextWR = new WeakReference<>(application.getApplicationContext());
+        SkinActivityLifecycleCallbacks.init(application);
         SkinPreferencesManager.init(application);
         SkinResourcesManager.init(application);
     }
