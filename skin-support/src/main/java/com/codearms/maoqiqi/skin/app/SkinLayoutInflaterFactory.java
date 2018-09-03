@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.codearms.maoqiqi.skin.listener.OnSkinChangeListener;
 import com.codearms.maoqiqi.skin.manager.SkinManager;
+import com.codearms.maoqiqi.skin.manager.SkinResourcesManager;
 import com.codearms.maoqiqi.skin.widget.Skinable;
 
 import java.lang.ref.WeakReference;
@@ -91,7 +92,7 @@ public class SkinLayoutInflaterFactory implements LayoutInflater.Factory2 {
                 return;
             }
         }
-        // activity.getWindow().setStatusBarColor();
+        activity.getWindow().setStatusBarColor(SkinResourcesManager.getInstance().getStatusBarColor(activity));
     }
 
     /**

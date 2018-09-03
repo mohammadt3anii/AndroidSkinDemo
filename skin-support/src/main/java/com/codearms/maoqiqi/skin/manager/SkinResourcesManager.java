@@ -1,11 +1,13 @@
 package com.codearms.maoqiqi.skin.manager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.util.TypedValue;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -289,6 +291,16 @@ public class SkinResourcesManager {
     }
 
     /**
+     * 根据属性Id获取key
+     *
+     * @param attr the attribute
+     * @return key
+     */
+    private String getKeyByAttr(int attr) {
+        return "attr:" + attr;
+    }
+
+    /**
      * 清除缓存信息
      */
     private void clearCaches() {
@@ -441,5 +453,65 @@ public class SkinResourcesManager {
             }
         }
         return colorStateList;
+    }
+
+    /**
+     * 根据属性获取颜色
+     *
+     * @param activity the activity
+     * @param attr     the attribute
+     * @return color
+     */
+    private int getColorByAttr(Activity activity, int attr) {
+        int color = getColorFromCache(getKeyByAttr(attr));
+        if (color == 0) {
+            TypedValue typedValue = new TypedValue();
+            activity.getTheme().resolveAttribute(android.R.attr.statusBarColor, typedValue, true);
+            color = getColor(typedValue.resourceId);
+            if (color != INVALID_RESOURCES) {
+                addColorToCache(getKeyByAttr(attr), color);
+            }
+        }
+        return color;
+    }
+
+    /**
+     * 获取应用的主色
+     *
+     * @param activity the activity
+     * @return colorPrimary
+     */
+    public int getColorPrimary(Activity activity) {
+        return getColorByAttr(activity, android.R.attr.colorPrimary);
+    }
+
+    /**
+     * 获取应用的主暗色
+     *
+     * @param activity the activity
+     * @return colorPrimaryDark
+     */
+    public int getDarkColorPrimary(Activity activity) {
+        return getColorByAttr(activity, android.R.attr.colorPrimaryDark);
+    }
+
+    /**
+     * 获取应用的强调色
+     *
+     * @param activity the activity
+     * @return colorAccent
+     */
+    public int getColorAccent(Activity activity) {
+        return getColorByAttr(activity, android.R.attr.colorAccent);
+    }
+
+    /**
+     * 获取应用的状态栏颜色
+     *
+     * @param activity the activity
+     * @return statusBarColor
+     */
+    public int getStatusBarColor(Activity activity) {
+        return getColorByAttr(activity, android.R.attr.statusBarColor);
     }
 }
