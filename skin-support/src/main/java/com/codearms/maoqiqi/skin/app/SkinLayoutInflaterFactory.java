@@ -7,6 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.codearms.maoqiqi.skin.listener.OnSkinChangeListener;
+import com.codearms.maoqiqi.skin.manager.SkinManager;
+import com.codearms.maoqiqi.skin.widget.Skinable;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 实现系统提供的LayoutInflater.Factory2接口,替换系统默认的来创建视图
@@ -16,12 +22,28 @@ import com.codearms.maoqiqi.skin.listener.OnSkinChangeListener;
 public class SkinLayoutInflaterFactory implements LayoutInflater.Factory2 {
 
     /**
+     * the Activity
+     */
+    private Activity activity;
+
+    /**
+     * 创建视图
+     */
+    private AppCompatViewInflater appCompatViewInflater;
+
+    /**
+     * 保存所有实现Skinable接口的实例
+     */
+    private List<WeakReference<Skinable>> skinWeakReferenceSkinableList = new ArrayList<>();
+
+    /**
      * 私有化构造函数
      *
      * @param activity the activity
      */
     private SkinLayoutInflaterFactory(Activity activity) {
         super();
+        this.activity = activity;
     }
 
     /**
@@ -36,7 +58,17 @@ public class SkinLayoutInflaterFactory implements LayoutInflater.Factory2 {
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-        return null;
+        if (appCompatViewInflater == null) {
+            appCompatViewInflater = new AppCompatViewInflater();
+        }
+
+        View view = appCompatViewInflater.createView(parent, name, context, attrs);
+        if (view != null) {
+            if (view instanceof Skinable) {
+                skinWeakReferenceSkinableList.add(new WeakReference<>((Skinable) view));
+            }
+        }
+        return view;
     }
 
     @Override
@@ -48,27 +80,52 @@ public class SkinLayoutInflaterFactory implements LayoutInflater.Factory2 {
      * 更新状态栏
      */
     public void updateStatusBarColor() {
+        if (activity == null) return;
 
+        if ((SkinManager.getInstance().isSkinAllStatusBarColorEnable())) {
+            if (SkinManager.getInstance().getSkinStatusBarColorDisEnables().containsKey(activity)) {
+                return;
+            }
+        } else {
+            if (!SkinManager.getInstance().getSkinStatusBarColorEnables().containsKey(activity)) {
+                return;
+            }
+        }
+        // activity.getWindow().setStatusBarColor();
     }
 
     /**
      * 更新皮肤
      */
     public void updateSkin() {
-
+        if (!skinWeakReferenceSkinableList.isEmpty()) {
+            for (WeakReference<Skinable> weakReference : skinWeakReferenceSkinableList) {
+                if (weakReference.get() != null) weakReference.get().updateSkin();
+            }
+        }
     }
 
     /**
-     * 如果接口实现了OnSkinChangeListener,调用{@link OnSkinChangeListener#onSkinChanged()}回调方法
+     * 如果实现了OnSkinChangeListener接口,调用{@link OnSkinChangeListener#onSkinChanged()}回调方法
      */
     public void skinChangedCallBack() {
-
+        if (activity != null) {
+            if (activity instanceof OnSkinChangeListener) {
+                ((OnSkinChangeListener) activity).onSkinChanged();
+            }
+        }
     }
 
     /**
      * 清除数据
      */
     public void clearData() {
+        if (activity != null) {
+            activity = null;
+        }
 
+        if (!skinWeakReferenceSkinableList.isEmpty()) {
+            skinWeakReferenceSkinableList.clear();
+        }
     }
 }
