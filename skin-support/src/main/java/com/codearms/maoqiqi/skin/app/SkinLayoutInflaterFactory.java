@@ -28,6 +28,11 @@ public class SkinLayoutInflaterFactory implements LayoutInflater.Factory2 {
     private Activity activity;
 
     /**
+     * 对Context进行包装
+     */
+    private SkinContextWrapper skinContextWrapper;
+
+    /**
      * 创建视图
      */
     private AppCompatViewInflater appCompatViewInflater;
@@ -57,8 +62,16 @@ public class SkinLayoutInflaterFactory implements LayoutInflater.Factory2 {
         return new SkinLayoutInflaterFactory(activity);
     }
 
+    /**
+     * 参考AppCompatDelegateImplV9{@link android.support.v7.app.AppCompatDelegateImplV9}
+     */
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        if (skinContextWrapper == null) {
+            skinContextWrapper = new SkinContextWrapper();
+        }
+        context = skinContextWrapper.wrapContext(parent, name, context, attrs);
+
         if (appCompatViewInflater == null) {
             appCompatViewInflater = new AppCompatViewInflater();
         }
