@@ -6,4 +6,29 @@
         <attr name="android:foreground" />
         <attr name="android:foregroundTint" />
     </declare-styleable>
+
+    <declare-styleable name="SkinTextAppearance">
+        <attr name="android:textColor" />
+        <attr name="android:textColorHint" />
+        <attr name="android:textColorLink" />
+        <attr name="android:textColorHighlight" />
+    </declare-styleable>
+    <declare-styleable name="SkinTextViewHelper">
+        <attr name="android:textAppearance" />
+        <attr name="android:textColor" />
+        <attr name="android:textColorHint" />
+        <attr name="android:textColorLink" />
+        <attr name="android:textColorHighlight" />
+        <attr name="android:textCursorDrawable" />
+        <attr name="android:textSelectHandle" />
+        <attr name="android:textSelectHandleLeft" />
+        <attr name="android:textSelectHandleRight" />
+        <attr name="android:drawableLeft" />
+        <attr name="android:drawableTop" />
+        <attr name="android:drawableRight" />
+        <attr name="android:drawableBottom" />
+        <attr name="android:drawableStart" />
+        <attr name="android:drawableEnd" />
+        <attr name="android:drawableTint" />
+    </declare-styleable>
 </resources>
