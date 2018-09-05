@@ -356,6 +356,16 @@ public class SkinResourcesManager {
     }
 
     /**
+     * 得到资源id的typeName
+     *
+     * @param resId resource id
+     * @return typeName
+     */
+    public String getTypeName(int resId) {
+        return resources.getResourceTypeName(resId);
+    }
+
+    /**
      * 获取目标资源Id
      *
      * @param resId resource id
