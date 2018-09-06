@@ -31,4 +31,8 @@
         <attr name="android:drawableEnd" />
         <attr name="android:drawableTint" />
     </declare-styleable>
+    <declare-styleable name="SkinAutoCompleteTextViewHelper">
+        <attr name="android:popupTheme" />
+        <attr name="android:dropDownSelector" />
+    </declare-styleable>
 </resources>
