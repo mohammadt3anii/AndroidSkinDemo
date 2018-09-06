@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.widget.AutoCompleteTextView;
 
+import com.codearms.maoqiqi.skin.helper.SkinAutoCompleteTextViewHelper;
 import com.codearms.maoqiqi.skin.helper.SkinTextViewHelper;
 import com.codearms.maoqiqi.skin.helper.SkinViewHelper;
 
@@ -26,6 +27,11 @@ public class SkinAutoCompleteTextView extends AutoCompleteTextView implements Sk
      * TextView更新皮肤帮助类
      */
     private SkinTextViewHelper skinTextViewHelper;
+
+    /**
+     * AutoCompleteTextView更新皮肤帮助类
+     */
+    private SkinAutoCompleteTextViewHelper skinAutoCompleteTextViewHelper;
 
     public SkinAutoCompleteTextView(Context context) {
         this(context, null);
@@ -49,6 +55,8 @@ public class SkinAutoCompleteTextView extends AutoCompleteTextView implements Sk
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinTextViewHelper = new SkinTextViewHelper(this);
         skinTextViewHelper.loadFromAttribute(attrs, defStyleAttr);
+        skinAutoCompleteTextViewHelper = new SkinAutoCompleteTextViewHelper(this);
+        skinAutoCompleteTextViewHelper.loadFromAttribute(attrs, defStyleAttr);
     }
 
     @Override
@@ -84,12 +92,23 @@ public class SkinAutoCompleteTextView extends AutoCompleteTextView implements Sk
     }
 
     @Override
+    public void setDropDownBackgroundResource(int id) {
+        super.setDropDownBackgroundResource(id);
+        if (skinAutoCompleteTextViewHelper != null) {
+            skinAutoCompleteTextViewHelper.setSupportDropDownBackgroundResource(id);
+        }
+    }
+
+    @Override
     public void updateSkin() {
         if (skinViewHelper != null) {
             skinViewHelper.updateSkin();
         }
         if (skinTextViewHelper != null) {
             skinTextViewHelper.updateSkin();
+        }
+        if (skinAutoCompleteTextViewHelper != null) {
+            skinAutoCompleteTextViewHelper.updateSkin();
         }
     }
 }
