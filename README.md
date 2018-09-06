@@ -40,6 +40,7 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 │    │    ├─── ImageButton
 │    │    │    ├─── android.support.v7.widget.AppCompatImageButton
 │    │    │    ├─── android.support.design.widget.FloatingActionButton
+│    ├─── ViewStub
 │    ├─── ViewGroup
 │    │    ├─── LinearLayout
 │    │    │    ├─── TableLayout
@@ -47,6 +48,7 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 │    │    │    ├─── RadioGroup
 │    │    │    ├─── NumberPicker
 │    │    │    ├─── SearchView
+│    │    │    ├─── ZoomControls
 │    │    │    ├─── android.support.design.widget.AppBarLayout
 │    │    │    ├─── android.support.design.widget.TextInputLayout
 │    │    ├─── RelativeLayout
@@ -54,9 +56,11 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 │    │    │    ├─── ScrollView
 │    │    │    │    ├─── HorizontalScrollView
 │    │    │    │    │    ├─── android.support.design.widget.TabLayout
-│    │    │    ├─── ViewSwitcher
-│    │    │    │    ├─── TextSwitcher
-│    │    │    │    ├─── ImageSwitcher
+│    │    │    ├─── ViewAnimator
+│    │    │    │    ├─── ViewSwitcher
+│    │    │    │    │    ├─── TextSwitcher
+│    │    │    │    │    ├─── ImageSwitcher
+│    │    │    │    ├─── ViewFlipper
 │    │    │    ├─── DatePicker
 │    │    │    ├─── TimePicker
 │    │    │    ├─── CalendarView
@@ -66,15 +70,18 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 │    │    │    │    ├─── android.support.design.widget.NavigationView
 │    │    │    ├─── android.support.design.widget.BottomNavigationView
 │    │    │    ├─── android.support.v7.widget.CardView
-│    │    ├─── AbsSpinner
-│    │    │    ├─── Spinner
-│    │    │    │    ├─── android.support.v7.widget.AppCompatSpinner
-│    │    │    ├─── Gallery
-│    │    ├─── AbsListView
-│    │    │    ├─── ListView
-│    │    │    │    ├─── ExpandableListView
-│    │    │    ├─── GridView
-│    │    ├─── StackView
+│    │    ├─── AdapterView
+│    │    │    ├─── AbsSpinner
+│    │    │    │    ├─── Spinner
+│    │    │    │    │    ├─── android.support.v7.widget.AppCompatSpinner
+│    │    │    │    ├─── Gallery
+│    │    │    ├─── AbsListView
+│    │    │    │    ├─── ListView
+│    │    │    │    │    ├─── ExpandableListView
+│    │    │    │    ├─── GridView
+│    │    │    ├─── AdapterViewAnimator
+│    │    │    │    ├─── StackView
+│    │    │    │    ├─── AdapterViewFlipper
 │    │    ├─── GridLayout
 │    │    ├─── android.support.v4.widget.DrawerLayout
 │    │    ├─── android.support.v4.widget.SlidingPaneLayout
@@ -129,13 +136,15 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 |ImageButton|||
 |AppCompatImageButton|||
 |FloatingActionButton|app:rippleColor<br> app:backgroundTint<br>|format="color"<br> format="color"|
-|ViewGroup|||
+|ViewStub|||
+|ViewGroup|android:scrollbarThumbVertical<br> android:scrollbarTrackVertical<br> android:scrollbarThumbHorizontal<br> android:scrollbarTrackHorizontal<br>|format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br>|
 |LinearLayout|android:divider|format="reference\|color"|
 |TableLayout|||
 |TableRow|||
 |RadioGroup|||
 |NumberPicker|solidColor<br> selectionDivider<br> virtualButtonPressedDrawable<br>|format="reference\|color"<br> format="reference"<br> format="reference"<br>|
 |SearchView|android:closeIcon<br> android:goIcon<br> android:searchIcon<br> android:searchHintIcon<br> android:voiceIcon<br> android:commitIcon<br> android:queryBackground<br> android:submitBackground<br>|format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br>|
+|ZoomControls|||
 |AppBarLayout|||
 |TextInputLayout|android:textColorHint<br> app:hintTextAppearance<br> app:errorTextAppearance<br> app:counterTextAppearance<br> app:counterOverflowTextAppearance<br> app:passwordToggleDrawable<br> app:passwordToggleTint<br>|format="reference\|color"<br> format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br> format="color"<br>|
 |RelativeLayout|||
@@ -143,9 +152,11 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 |ScrollView|||
 |HorizontalScrollView|||
 |TabLayout|app:tabBackground<br> app:tabIndicatorColor<br> app:tabTextAppearance<br> app:tabTextColor<br> app:tabSelectedTextColor<br>|format="reference"<br> format="color"<br> format="reference"<br> format="color"<br> format="color"<br>|
+|ViewAnimator|||
 |ViewSwitcher|||
 |TextSwitcher|||
 |ImageSwitcher||
+|ViewFlipper|||
 |DatePicker|headerTextColor<br> headerBackground<br> calendarTextColor<br>|format="color"<br> format="reference\|color"<br> format="color"<br>|
 |TimePicker|headerTextColor<br> headerBackground<br> numbersTextColor<br> numbersInnerTextColor<br> numbersBackgroundColor<br> numbersSelectorColor<br>|format="color"<br> format="reference\|color"<br> format="color"<br> format="color"<br> format="color"<br> format="color"<br>|
 |CalendarView|android:weekDayTextAppearance<br> android:dateTextAppearance<br>|format="reference"<br> format="reference"<br>|
@@ -155,6 +166,7 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 |NavigationView|app:itemTextAppearance<br> app:itemBackground<br> app:itemIconTint<br> app:itemTextColor<br>|format="reference"<br> format="reference"<br> format="color"<br> format="color"<br>|
 |BottomNavigationView|app:itemBackground<br> app:itemIconTint<br> app:itemTextColor<br>|format="reference"<br> format="color"<br> format="color"<br>|
 |CardView|app:cardBackgroundColor|format="color"|
+|AdapterView|||
 |AbsSpinner|||
 |Spinner|android:popupTheme<br> android:popupBackground<br> android:dropDownSelector<br>|format="reference"<br> format="reference\|color"<br> format="reference"<br>|
 |AppCompatSpinner|app:popupTheme<br>|format="reference"<br>|
@@ -163,7 +175,9 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 |ListView|android:divider<br>|format="reference\|color"|
 |ExpandableListView|android:groupIndicator<br> android:childIndicator<br> android:childDivider<br>|format="reference"<br> format="reference"<br> format="reference\|color"<br>|
 |GridView|||
+|AdapterViewAnimator|||
 |StackView|||
+|AdapterViewFlipper|||
 |GridLayout|||
 |DrawerLayout|||
 |SlidingPaneLayout|||
