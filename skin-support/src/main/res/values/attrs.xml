@@ -35,4 +35,8 @@
         <attr name="android:popupTheme" />
         <attr name="android:dropDownSelector" />
     </declare-styleable>
+    <declare-styleable name="SkinCompoundButtonHelper">
+        <attr name="android:button" />
+        <attr name="android:buttonTint" />
+    </declare-styleable>
 </resources>
