@@ -39,4 +39,11 @@
         <attr name="android:button" />
         <attr name="android:buttonTint" />
     </declare-styleable>
+    <declare-styleable name="SkinSwitchHelper">
+        <attr name="android:switchTextAppearance" />
+        <attr name="android:thumb" />
+        <attr name="android:thumbTint" />
+        <attr name="android:track" />
+        <attr name="android:trackTint" />
+    </declare-styleable>
 </resources>
