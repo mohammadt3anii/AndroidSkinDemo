@@ -46,4 +46,8 @@
         <attr name="android:track" />
         <attr name="android:trackTint" />
     </declare-styleable>
+    <declare-styleable name="SkinCheckedTextViewHelper">
+        <attr name="android:checkMark" />
+        <attr name="android:checkMarkTint" />
+    </declare-styleable>
 </resources>
