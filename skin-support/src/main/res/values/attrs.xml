@@ -64,4 +64,9 @@
         <attr name="android:tickMark" />
         <attr name="android:tickMarkTint" />
     </declare-styleable>
+    <declare-styleable name="SkinImageViewHelper">
+        <attr name="android:src" />
+        <attr name="android:tint" />
+        <attr name="srcCompat" />
+    </declare-styleable>
 </resources>
