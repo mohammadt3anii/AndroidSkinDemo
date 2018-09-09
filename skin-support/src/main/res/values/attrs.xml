@@ -58,4 +58,10 @@
         <attr name="android:progressBackgroundTint" />
         <attr name="android:indeterminateTint" />
     </declare-styleable>
+    <declare-styleable name="SkinSeekBarHelper">
+        <attr name="android:thumb" />
+        <attr name="android:thumbTint" />
+        <attr name="android:tickMark" />
+        <attr name="android:tickMarkTint" />
+    </declare-styleable>
 </resources>
