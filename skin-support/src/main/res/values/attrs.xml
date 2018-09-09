@@ -50,4 +50,12 @@
         <attr name="android:checkMark" />
         <attr name="android:checkMarkTint" />
     </declare-styleable>
+    <declare-styleable name="SkinProgressBarHelper">
+        <attr name="android:progressDrawable" />
+        <attr name="android:indeterminateDrawable" />
+        <attr name="android:progressTint" />
+        <attr name="android:secondaryProgressTint" />
+        <attr name="android:progressBackgroundTint" />
+        <attr name="android:indeterminateTint" />
+    </declare-styleable>
 </resources>
