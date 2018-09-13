@@ -1,5 +1,6 @@
 package com.codearms.maoqiqi.skin.helper;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -7,6 +8,9 @@ import android.util.AttributeSet;
 import android.widget.Switch;
 
 import com.codearms.maoqiqi.skin.R;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Switch更新皮肤帮助类,Switch及子类都可以使用该帮助类
@@ -16,6 +20,7 @@ import com.codearms.maoqiqi.skin.R;
 public class SkinSwitchHelper extends SkinHelper<Switch> {
 
     private int switchTextAppearanceResId = INVALID_RESOURCES;
+    private int switchTextColorResId = INVALID_RESOURCES;
     private int thumbResId = INVALID_RESOURCES;
     private int thumbTintResId = INVALID_RESOURCES;
     private int trackResId = INVALID_RESOURCES;
@@ -31,6 +36,7 @@ public class SkinSwitchHelper extends SkinHelper<Switch> {
         try {
             if (a.hasValue(R.styleable.SkinSwitchHelper_android_switchTextAppearance)) {
                 switchTextAppearanceResId = a.getResourceId(R.styleable.SkinSwitchHelper_android_switchTextAppearance, INVALID_RESOURCES);
+                obtainTextAppearance();
             }
             if (a.hasValue(R.styleable.SkinSwitchHelper_android_thumb)) {
                 thumbResId = a.getResourceId(R.styleable.SkinSwitchHelper_android_thumb, INVALID_RESOURCES);
@@ -50,13 +56,30 @@ public class SkinSwitchHelper extends SkinHelper<Switch> {
     }
 
     /**
+     * 解析SkinTextAppearance,获取属性值
+     */
+    private void obtainTextAppearance() {
+        if (switchTextAppearanceResId == INVALID_RESOURCES) return;
+        TypedArray a = view.getContext().obtainStyledAttributes(switchTextAppearanceResId, R.styleable.SkinTextAppearance);
+        try {
+            if (a.hasValue(R.styleable.SkinTextAppearance_android_textColor)) {
+                switchTextColorResId = a.getResourceId(R.styleable.SkinTextAppearance_android_textColor, INVALID_RESOURCES);
+            }
+        } finally {
+            a.recycle();
+        }
+    }
+
+    /**
      * 设置Switch文本样式文本样式
      *
      * @param resId resource id
      */
     public void setSupportSwitchTextAppearance(int resId) {
         switchTextAppearanceResId = resId;
-        applySupportSwitchTextAppearance();
+        if (switchTextAppearanceResId == INVALID_RESOURCES) return;
+        obtainTextAppearance();
+        applySupportSwitchTextColor();
     }
 
     /**
@@ -80,10 +103,54 @@ public class SkinSwitchHelper extends SkinHelper<Switch> {
     }
 
     /**
+     * 设置Switch文本颜色
      *
+     * @param view           视图
+     * @param colorStateList 需要赋值的资源
      */
-    private void applySupportSwitchTextAppearance() {
+    private void setSwitchTextColor(Switch view, ColorStateList colorStateList) {
+        try {
+            String name = "mTextColors";
+            Field fTextColors = Switch.class.getDeclaredField(name);
+            fTextColors.setAccessible(true);
+            fTextColors.set(view, colorStateList);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 
+    /**
+     * 移除私有API调用的警告
+     */
+    private void removeWarning() {
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> cls = Class.forName("android.app.ActivityThread");
+            Method declaredMethod = cls.getDeclaredMethod("currentActivityThread");
+            declaredMethod.setAccessible(true);
+            Object activityThread = declaredMethod.invoke(null);
+
+            Field fHiddenApiWarningShown = cls.getDeclaredField("mHiddenApiWarningShown");
+            fHiddenApiWarningShown.setAccessible(true);
+            fHiddenApiWarningShown.setBoolean(activityThread, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 应用Switch文本颜色
+     */
+    private void applySupportSwitchTextColor() {
+        if (switchTextColorResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(switchTextColorResId);
+        if (isColor(typeName) || isDrawable(typeName)) {
+            ColorStateList colorStateList = getColorStateList(switchTextColorResId);
+            if (colorStateList == null) return;
+            // 使用反射设置Switch文本颜色之后会弹出警告,需要移除警告
+            setSwitchTextColor(view, colorStateList);
+            removeWarning();
+        }
     }
 
     /**
@@ -92,12 +159,11 @@ public class SkinSwitchHelper extends SkinHelper<Switch> {
     private void applySupportThumb() {
         if (thumbResId == INVALID_RESOURCES) return;
         String typeName = getTypeName(thumbResId);
-        Drawable drawable = null;
         if (isDrawable(typeName)) {
-            drawable = getDrawable(thumbResId);
+            Drawable drawable = getDrawable(thumbResId);
+            if (drawable == null) return;
+            view.setThumbDrawable(drawable);
         }
-        if (drawable == null) return;
-        view.setThumbDrawable(drawable);
     }
 
     /**
@@ -106,12 +172,11 @@ public class SkinSwitchHelper extends SkinHelper<Switch> {
     private void applySupportTrack() {
         if (trackResId == INVALID_RESOURCES) return;
         String typeName = getTypeName(trackResId);
-        Drawable drawable = null;
         if (isDrawable(typeName)) {
-            drawable = getDrawable(trackResId);
+            Drawable drawable = getDrawable(trackResId);
+            if (drawable == null) return;
+            view.setTrackDrawable(drawable);
         }
-        if (drawable == null) return;
-        view.setTrackDrawable(drawable);
     }
 
     /**
@@ -142,7 +207,7 @@ public class SkinSwitchHelper extends SkinHelper<Switch> {
 
     @Override
     public void updateSkin() {
-        applySupportSwitchTextAppearance();
+        applySupportSwitchTextColor();
         applySupportThumb();
         applySupportTrack();
         applySupportThumbTint();
