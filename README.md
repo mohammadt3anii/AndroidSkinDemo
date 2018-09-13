@@ -102,7 +102,7 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 
 |View|支持换肤属性|属性说明|
 |:---|:---|:---|
-|View|android:background<br> android:backgroundTint<br> android:foreground<br> android:foregroundTint<br>|format="reference\|color" format="color" format="reference\|color" format="color"|
+|View|android:background<br> android:backgroundTint<br> android:foreground<br> android:foregroundTint<br> android:scrollbarThumbVertical<br> android:scrollbarTrackVertical<br> android:scrollbarThumbHorizontal<br> android:scrollbarTrackHorizontal<br>|format="reference\|color" format="color" format="reference\|color" format="color" format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br>|
 |TextView|android:textAppearance<br> android:textColor<br> android:textColorHint<br> android:textColorLink<br> android:textColorHighlight<br> android:textCursorDrawable<br> android:textSelectHandle<br> android:textSelectHandleLeft<br> android:textSelectHandleRight<br> android:drawableLeft<br> android:drawableTop<br> android:drawableRight<br> android:drawableBottom<br> android:drawableStart<br> android:drawableEnd<br> android:drawableTint<br>|format="reference" format="reference\|color" format="reference\|color" format="reference\|color" format="reference\|color" format="reference" format="reference" format="reference" format="reference" format="reference\|color" format="reference\|color" format="reference\|color" format="reference\|color" format="reference\|color" format="reference\|color" format="color"|
 |AppCompatTextView|||
 |EditText|||
@@ -137,7 +137,7 @@ AndroidSkin is an Android multi theme library which supporting daily colorful th
 |AppCompatImageButton|||
 |FloatingActionButton|app:rippleColor<br> app:backgroundTint<br>|format="color"<br> format="color"|
 |ViewStub|||
-|ViewGroup|android:scrollbarThumbVertical<br> android:scrollbarTrackVertical<br> android:scrollbarThumbHorizontal<br> android:scrollbarTrackHorizontal<br>|format="reference"<br> format="reference"<br> format="reference"<br> format="reference"<br>|
+|ViewGroup|||
 |LinearLayout|android:divider|format="reference\|color"|
 |TableLayout|||
 |TableRow|||
