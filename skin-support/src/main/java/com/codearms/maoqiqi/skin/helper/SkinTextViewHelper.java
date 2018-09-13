@@ -2,11 +2,15 @@ package com.codearms.maoqiqi.skin.helper;
 
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.codearms.maoqiqi.skin.R;
+
+import java.lang.reflect.Field;
 
 /**
  * TextView更新皮肤帮助类,TextView及子类都可以使用该帮助类
@@ -235,6 +239,111 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
     }
 
     /**
+     * 设置文本光标Drawable
+     *
+     * @param editText EditText视图
+     * @param drawable 资源
+     */
+    private void setTextCursorDrawable(EditText editText, Drawable drawable) {
+        try {
+            String name = "mEditor";
+            Field fEditor = TextView.class.getDeclaredField(name);
+            fEditor.setAccessible(true);
+            Object editor = fEditor.get(editText);
+
+            Field fCursorDrawable = editor.getClass().getDeclaredField("mCursorDrawable");
+            fCursorDrawable.setAccessible(true);
+            fCursorDrawable.set(editor, new Drawable[]{drawable});
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 应用文本光标Drawable
+     */
+    private void applySupportTextCursorDrawable() {
+        if (!(view instanceof EditText)) return;
+        if (textCursorDrawableResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(textCursorDrawableResId);
+        Drawable drawable = null;
+        if (isColor(typeName)) {
+            int color = getColor(textColorHighlightResId);
+            if (color == 0) return;
+            drawable = new ColorDrawable(color);
+        } else if (isDrawable(typeName)) {
+            drawable = getDrawable(textCursorDrawableResId);
+        }
+        if (drawable == null) return;
+        setTextCursorDrawable((EditText) view, drawable);
+    }
+
+    /**
+     * 设置文本选中资源
+     *
+     * @param editText 视图
+     * @param index    属性名称索引
+     * @param drawable 需要赋值的资源
+     */
+    private void setTextSelectHandle(EditText editText, int index, Drawable drawable) {
+        String[] names = {"mSelectHandleCenter", "mSelectHandleLeft", "mSelectHandleRight"};
+        try {
+            String name = "mEditor";
+            Field fEditor = TextView.class.getDeclaredField(name);
+            fEditor.setAccessible(true);
+            Object editor = fEditor.get(editText);
+
+            Field fSelectHandle = editor.getClass().getDeclaredField(names[index]);
+            fSelectHandle.setAccessible(true);
+            fSelectHandle.set(editor, drawable);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 应用文本选中资源
+     */
+    private void applySupportTextSelectHandle() {
+        if (!(view instanceof EditText)) return;
+        if (textSelectHandleResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(textSelectHandleResId);
+        if (isDrawable(typeName)) {
+            Drawable drawable = getDrawable(textSelectHandleResId);
+            if (drawable == null) return;
+            setTextSelectHandle((EditText) view, 0, drawable);
+        }
+    }
+
+    /**
+     * 应用文本选中资源
+     */
+    private void applySupportTextSelectHandleLeft() {
+        if (!(view instanceof EditText)) return;
+        if (textSelectHandleLeftResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(textSelectHandleLeftResId);
+        if (isDrawable(typeName)) {
+            Drawable drawable = getDrawable(textSelectHandleLeftResId);
+            if (drawable == null) return;
+            setTextSelectHandle((EditText) view, 1, drawable);
+        }
+    }
+
+    /**
+     * 应用文本选中资源
+     */
+    private void applySupportTextSelectHandleRight() {
+        if (!(view instanceof EditText)) return;
+        if (textSelectHandleRightResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(textSelectHandleRightResId);
+        if (isDrawable(typeName)) {
+            Drawable drawable = getDrawable(textSelectHandleRightResId);
+            if (drawable == null) return;
+            setTextSelectHandle((EditText) view, 2, drawable);
+        }
+    }
+
+    /**
      * 应用Drawables
      */
     private void applySupportCompoundDrawables() {
@@ -289,6 +398,9 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
         view.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableStart, drawableTop, drawableEnd, drawableBottom);
     }
 
+    /**
+     * 应用Drawables着色
+     */
     private void applySupportDrawableTint() {
         if (drawableTintResId == INVALID_RESOURCES) return;
         String typeName = getTypeName(drawableTintResId);
@@ -305,6 +417,10 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
         applySupportTextColorHint();
         applySupportTextColorLink();
         applySupportTextColorHighlight();
+        applySupportTextCursorDrawable();
+        applySupportTextSelectHandle();
+        applySupportTextSelectHandleLeft();
+        applySupportTextSelectHandleRight();
         applySupportCompoundDrawables();
         applySupportCompoundDrawablesRelativeIfNeeded();
         applySupportDrawableTint();
