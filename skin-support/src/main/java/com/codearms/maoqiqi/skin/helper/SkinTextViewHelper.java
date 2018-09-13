@@ -176,11 +176,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
     private void applySupportTextColor() {
         if (textColorResId == INVALID_RESOURCES) return;
         String typeName = getTypeName(textColorResId);
-        if (isColor(typeName)) {
-            int color = getColor(textColorResId);
-            if (color == 0) return;
-            view.setTextColor(color);
-        } else if (isDrawable(typeName)) {
+        if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(textColorResId);
             if (colorStateList == null) return;
             view.setTextColor(colorStateList);
@@ -193,11 +189,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
     private void applySupportTextColorHint() {
         if (textColorHintResId == INVALID_RESOURCES) return;
         String typeName = getTypeName(textColorHintResId);
-        if (isColor(typeName)) {
-            int color = getColor(textColorHintResId);
-            if (color == 0) return;
-            view.setHintTextColor(color);
-        } else if (isDrawable(typeName)) {
+        if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(textColorHintResId);
             if (colorStateList == null) return;
             view.setHintTextColor(colorStateList);
@@ -210,11 +202,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
     private void applySupportTextColorLink() {
         if (textColorLinkResId == INVALID_RESOURCES) return;
         String typeName = getTypeName(textColorLinkResId);
-        if (isColor(typeName)) {
-            int color = getColor(textColorLinkResId);
-            if (color == 0) return;
-            view.setLinkTextColor(color);
-        } else if (isDrawable(typeName)) {
+        if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(textColorLinkResId);
             if (colorStateList == null) return;
             view.setLinkTextColor(colorStateList);
@@ -227,11 +215,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
     private void applySupportTextColorHighlight() {
         if (textColorHighlightResId == INVALID_RESOURCES) return;
         String typeName = getTypeName(textColorHighlightResId);
-        if (isColor(typeName)) {
-            int color = getColor(textColorHighlightResId);
-            if (color == 0) return;
-            view.setHighlightColor(color);
-        } else if (isDrawable(typeName)) {
+        if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(textColorHighlightResId);
             if (colorStateList == null) return;
             view.setHighlightColor(colorStateList.getDefaultColor());
