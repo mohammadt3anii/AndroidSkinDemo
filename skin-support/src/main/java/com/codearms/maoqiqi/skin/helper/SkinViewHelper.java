@@ -10,6 +10,10 @@ import android.view.View;
 
 import com.codearms.maoqiqi.skin.R;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * View更新皮肤帮助类,View及子类都可以使用该帮助类
  * Author: fengqi.mao.march@gmail.com
@@ -21,6 +25,10 @@ public class SkinViewHelper extends SkinHelper<View> {
     private int backgroundTintResId = INVALID_RESOURCES;
     private int foregroundResId = INVALID_RESOURCES;
     private int foregroundTintResId = INVALID_RESOURCES;
+    private int scrollbarThumbVerticalResId = INVALID_RESOURCES;
+    private int scrollbarTrackVerticalResId = INVALID_RESOURCES;
+    private int scrollbarThumbHorizontalResId = INVALID_RESOURCES;
+    private int scrollbarTrackHorizontalResId = INVALID_RESOURCES;
 
     public SkinViewHelper(View view) {
         super(view);
@@ -41,6 +49,18 @@ public class SkinViewHelper extends SkinHelper<View> {
             }
             if (a.hasValue(R.styleable.SkinViewHelper_android_foregroundTint)) {
                 foregroundTintResId = a.getResourceId(R.styleable.SkinViewHelper_android_foregroundTint, INVALID_RESOURCES);
+            }
+            if (a.hasValue(R.styleable.SkinViewHelper_android_scrollbarThumbVertical)) {
+                scrollbarThumbVerticalResId = a.getResourceId(R.styleable.SkinViewHelper_android_scrollbarThumbVertical, INVALID_RESOURCES);
+            }
+            if (a.hasValue(R.styleable.SkinViewHelper_android_scrollbarTrackVertical)) {
+                scrollbarTrackVerticalResId = a.getResourceId(R.styleable.SkinViewHelper_android_scrollbarTrackVertical, INVALID_RESOURCES);
+            }
+            if (a.hasValue(R.styleable.SkinViewHelper_android_scrollbarThumbHorizontal)) {
+                scrollbarThumbHorizontalResId = a.getResourceId(R.styleable.SkinViewHelper_android_scrollbarThumbHorizontal, INVALID_RESOURCES);
+            }
+            if (a.hasValue(R.styleable.SkinViewHelper_android_scrollbarTrackHorizontal)) {
+                scrollbarTrackHorizontalResId = a.getResourceId(R.styleable.SkinViewHelper_android_scrollbarTrackHorizontal, INVALID_RESOURCES);
             }
         } finally {
             a.recycle();
@@ -118,11 +138,123 @@ public class SkinViewHelper extends SkinHelper<View> {
         }
     }
 
+    /**
+     * 设置滚动条资源
+     *
+     * @param view     视图
+     * @param index    方法名称索引
+     *                 0:setVerticalThumbDrawable
+     *                 1:setVerticalTrackDrawable
+     *                 2:setHorizontalThumbDrawable
+     *                 3:setHorizontalTrackDrawable
+     * @param drawable 需要赋值的资源
+     */
+    private void setScrollBarDrawable(View view, int index, Drawable drawable) {
+        String[] names = {"setVerticalThumbDrawable", "setVerticalTrackDrawable",
+                "setHorizontalThumbDrawable", "setHorizontalTrackDrawable"};
+        try {
+            Field fScrollCache = View.class.getDeclaredField("mScrollCache");
+            fScrollCache.setAccessible(true);
+            Object scrollCache = fScrollCache.get(view);
+
+            Field fScrollBar = scrollCache.getClass().getDeclaredField("scrollBar");
+            fScrollBar.setAccessible(true);
+            Object scrollBar = fScrollBar.get(scrollCache);
+
+            Class<?> clazz = scrollBar.getClass();
+            Method method = clazz.getMethod(names[index], Drawable.class);
+            method.invoke(scrollBar, drawable);
+        } catch (NoSuchFieldException | IllegalAccessException |
+                NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 应用垂直滚动条的drawable
+     */
+    private void applySupportScrollBarVerticalThumbDrawable() {
+        if (scrollbarThumbVerticalResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(scrollbarThumbVerticalResId);
+        Drawable drawable = null;
+        if (isColor(typeName)) {
+            int color = getColor(scrollbarThumbVerticalResId);
+            if (color == 0) return;
+            drawable = new ColorDrawable(color);
+        } else if (isDrawable(typeName)) {
+            drawable = getDrawable(scrollbarThumbVerticalResId);
+        }
+        if (drawable != null) {
+            setScrollBarDrawable(view, 0, drawable);
+        }
+    }
+
+    /**
+     * 应用垂直滚动条背景(轨迹)的drawable
+     */
+    private void applySupportScrollBarVerticalTrackDrawable() {
+        if (scrollbarTrackVerticalResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(scrollbarTrackVerticalResId);
+        Drawable drawable = null;
+        if (isColor(typeName)) {
+            int color = getColor(scrollbarTrackVerticalResId);
+            if (color == 0) return;
+            drawable = new ColorDrawable(color);
+        } else if (isDrawable(typeName)) {
+            drawable = getDrawable(scrollbarTrackVerticalResId);
+        }
+        if (drawable != null) {
+            setScrollBarDrawable(view, 1, drawable);
+        }
+    }
+
+    /**
+     * 应用水平滚动条的drawable
+     */
+    private void applySupportScrollBarHorizontalThumbDrawable() {
+        if (scrollbarThumbHorizontalResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(scrollbarThumbHorizontalResId);
+        Drawable drawable = null;
+        if (isColor(typeName)) {
+            int color = getColor(scrollbarThumbHorizontalResId);
+            if (color == 0) return;
+            drawable = new ColorDrawable(color);
+        } else if (isDrawable(typeName)) {
+            drawable = getDrawable(scrollbarThumbHorizontalResId);
+        }
+        if (drawable != null) {
+            setScrollBarDrawable(view, 2, drawable);
+        }
+    }
+
+    /**
+     * 应用水平滚动条背景(轨迹)的drawable
+     */
+    private void applySupportScrollBarHorizontalTrackDrawable() {
+        if (scrollbarTrackHorizontalResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(scrollbarTrackHorizontalResId);
+        Drawable drawable = null;
+        if (isColor(typeName)) {
+            int color = getColor(scrollbarTrackHorizontalResId);
+            if (color == 0) return;
+            drawable = new ColorDrawable(color);
+        } else if (isDrawable(typeName)) {
+            drawable = getDrawable(scrollbarTrackHorizontalResId);
+        }
+        if (drawable != null) {
+            setScrollBarDrawable(view, 3, drawable);
+        }
+    }
+
     @Override
     public void updateSkin() {
         applySupportBackground();
         applySupportBackgroundTint();
         applySupportForeground();
         applySupportForegroundTint();
+        applySupportScrollBarVerticalThumbDrawable();
+        applySupportScrollBarVerticalTrackDrawable();
+        applySupportScrollBarHorizontalThumbDrawable();
+        applySupportScrollBarHorizontalTrackDrawable();
     }
 }
