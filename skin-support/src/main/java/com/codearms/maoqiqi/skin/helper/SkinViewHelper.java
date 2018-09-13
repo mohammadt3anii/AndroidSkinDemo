@@ -153,7 +153,8 @@ public class SkinViewHelper extends SkinHelper<View> {
         String[] names = {"setVerticalThumbDrawable", "setVerticalTrackDrawable",
                 "setHorizontalThumbDrawable", "setHorizontalTrackDrawable"};
         try {
-            Field fScrollCache = View.class.getDeclaredField("mScrollCache");
+            String name = "mScrollCache";
+            Field fScrollCache = View.class.getDeclaredField(name);
             fScrollCache.setAccessible(true);
             Object scrollCache = fScrollCache.get(view);
 
