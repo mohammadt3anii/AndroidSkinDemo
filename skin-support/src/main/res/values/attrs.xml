@@ -85,4 +85,8 @@
         <attr name="headerBackground" />
         <attr name="headerTextColor" />
     </declare-styleable>
+    <declare-styleable name="SkinTimePickerHelper">
+        <attr name="headerBackground" />
+        <attr name="headerTextColor" />
+    </declare-styleable>
 </resources>
