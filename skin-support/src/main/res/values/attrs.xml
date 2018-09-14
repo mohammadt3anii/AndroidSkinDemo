@@ -81,4 +81,8 @@
         <attr name="android:selectionDivider" />
         <attr name="android:virtualButtonPressedDrawable" />
     </declare-styleable>
+    <declare-styleable name="SkinDatePickerHelper">
+        <attr name="headerBackground" />
+        <attr name="headerTextColor" />
+    </declare-styleable>
 </resources>
