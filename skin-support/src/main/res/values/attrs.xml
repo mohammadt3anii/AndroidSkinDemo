@@ -73,4 +73,7 @@
         <attr name="android:tint" />
         <attr name="srcCompat" />
     </declare-styleable>
+    <declare-styleable name="SkinLinearLayoutHelper">
+        <attr name="android:divider" />
+    </declare-styleable>
 </resources>

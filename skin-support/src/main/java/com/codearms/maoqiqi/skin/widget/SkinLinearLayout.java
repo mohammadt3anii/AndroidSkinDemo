@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import com.codearms.maoqiqi.skin.helper.SkinLinearLayoutHelper;
 import com.codearms.maoqiqi.skin.helper.SkinViewHelper;
 
 /**
@@ -18,6 +19,11 @@ public class SkinLinearLayout extends LinearLayout implements Skinable {
      * View更新皮肤帮助类
      */
     private SkinViewHelper skinViewHelper;
+
+    /**
+     * LinearLayout更新皮肤帮助类
+     */
+    private SkinLinearLayoutHelper skinLinearLayoutHelper;
 
     public SkinLinearLayout(Context context) {
         this(context, null);
@@ -35,6 +41,8 @@ public class SkinLinearLayout extends LinearLayout implements Skinable {
         super(context, attrs, defStyleAttr, defStyleRes);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
+        skinLinearLayoutHelper = new SkinLinearLayoutHelper(this);
+        skinLinearLayoutHelper.loadFromAttribute(attrs, defStyleAttr);
     }
 
     @Override
@@ -49,6 +57,9 @@ public class SkinLinearLayout extends LinearLayout implements Skinable {
     public void updateSkin() {
         if (skinViewHelper != null) {
             skinViewHelper.updateSkin();
+        }
+        if (skinLinearLayoutHelper != null) {
+            skinLinearLayoutHelper.updateSkin();
         }
     }
 }
