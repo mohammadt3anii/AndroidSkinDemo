@@ -52,6 +52,22 @@ public class SkinCalendarView extends CalendarView implements Skinable {
     }
 
     @Override
+    public void setWeekDayTextAppearance(int resourceId) {
+        super.setWeekDayTextAppearance(resourceId);
+        if (skinCalendarViewHelper != null) {
+            skinCalendarViewHelper.setSupportWeekDayTextAppearance(resourceId);
+        }
+    }
+
+    @Override
+    public void setDateTextAppearance(int resourceId) {
+        super.setDateTextAppearance(resourceId);
+        if (skinCalendarViewHelper != null) {
+            skinCalendarViewHelper.setSupportDateTextAppearance(resourceId);
+        }
+    }
+
+    @Override
     public void updateSkin() {
         if (skinViewHelper != null) {
             skinViewHelper.updateSkin();

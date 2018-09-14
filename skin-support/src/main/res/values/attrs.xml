@@ -89,4 +89,8 @@
         <attr name="headerBackground" />
         <attr name="headerTextColor" />
     </declare-styleable>
+    <declare-styleable name="SkinCalendarViewHelper">
+        <attr name="android:weekDayTextAppearance" />
+        <attr name="android:dateTextAppearance" />
+    </declare-styleable>
 </resources>
