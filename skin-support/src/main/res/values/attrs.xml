@@ -76,4 +76,9 @@
     <declare-styleable name="SkinLinearLayoutHelper">
         <attr name="android:divider" />
     </declare-styleable>
+    <declare-styleable name="SkinNumberPickerHelper">
+        <attr name="android:solidColor" />
+        <attr name="android:selectionDivider" />
+        <attr name="android:virtualButtonPressedDrawable" />
+    </declare-styleable>
 </resources>
