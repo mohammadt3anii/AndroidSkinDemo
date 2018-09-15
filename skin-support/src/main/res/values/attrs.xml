@@ -101,4 +101,7 @@
     <declare-styleable name="SkinAbsListViewHelper">
         <attr name="android:listSelector" />
     </declare-styleable>
+    <declare-styleable name="SkinListViewHelper">
+        <attr name="android:divider" />
+    </declare-styleable>
 </resources>
