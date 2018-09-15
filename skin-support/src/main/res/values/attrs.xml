@@ -98,4 +98,7 @@
         <attr name="android:popupBackground" />
         <attr name="android:dropDownSelector" />
     </declare-styleable>
+    <declare-styleable name="SkinAbsListViewHelper">
+        <attr name="android:listSelector" />
+    </declare-styleable>
 </resources>
