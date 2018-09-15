@@ -93,4 +93,9 @@
         <attr name="android:weekDayTextAppearance" />
         <attr name="android:dateTextAppearance" />
     </declare-styleable>
+    <declare-styleable name="SkinSpinnerHelper">
+        <attr name="android:popupTheme" />
+        <attr name="android:popupBackground" />
+        <attr name="android:dropDownSelector" />
+    </declare-styleable>
 </resources>
