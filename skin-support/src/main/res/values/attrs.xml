@@ -104,4 +104,9 @@
     <declare-styleable name="SkinListViewHelper">
         <attr name="android:divider" />
     </declare-styleable>
+    <declare-styleable name="SkinExpandableListViewHelper">
+        <attr name="android:groupIndicator" />
+        <attr name="android:childIndicator" />
+        <attr name="android:childDivider" />
+    </declare-styleable>
 </resources>
