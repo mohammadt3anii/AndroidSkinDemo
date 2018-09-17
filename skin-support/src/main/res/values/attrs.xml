@@ -81,6 +81,16 @@
         <attr name="android:selectionDivider" />
         <attr name="android:virtualButtonPressedDrawable" />
     </declare-styleable>
+    <declare-styleable name="SkinSearchViewHelper">
+        <attr name="android:queryBackground" />
+        <attr name="android:submitBackground" />
+        <attr name="android:searchIcon" />
+        <attr name="android:searchHintIcon" />
+        <attr name="android:closeIcon" />
+        <attr name="android:goIcon" />
+        <attr name="android:voiceIcon" />
+        <attr name="android:commitIcon" />
+    </declare-styleable>
     <declare-styleable name="SkinDatePickerHelper">
         <attr name="headerBackground" />
         <attr name="headerTextColor" />
