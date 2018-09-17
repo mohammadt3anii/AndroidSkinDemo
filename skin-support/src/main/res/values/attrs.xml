@@ -119,4 +119,14 @@
         <attr name="android:childIndicator" />
         <attr name="android:childDivider" />
     </declare-styleable>
+    <declare-styleable name="SkinToolbarHelper">
+        <attr name="android:titleTextAppearance" />
+        <attr name="android:subtitleTextAppearance" />
+        <attr name="android:titleTextColor" />
+        <attr name="android:subtitleTextColor" />
+        <attr name="android:logo" />
+        <attr name="android:navigationIcon" />
+        <attr name="android:collapseIcon" />
+        <attr name="android:popupTheme" />
+    </declare-styleable>
 </resources>
