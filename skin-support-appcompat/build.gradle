@@ -24,4 +24,5 @@ dependencies {
     androidTestImplementation "com.android.support.test:rules:$rootProject.rulesVersion"
     androidTestImplementation "com.android.support.test:runner:$rootProject.runnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
+    implementation project(':skin-support')
 }
