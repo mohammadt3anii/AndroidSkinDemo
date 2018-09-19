@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SkinSwitchCompatHelper">
+        <attr name="switchTextAppearance" />
+        <attr name="android:thumb" />
+        <attr name="thumbTint" />
+        <attr name="track" />
+        <attr name="trackTint" />
+    </declare-styleable>
+</resources>

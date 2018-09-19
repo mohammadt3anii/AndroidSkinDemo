@@ -22,24 +22,24 @@ public abstract class SkinHelper<T extends View> {
     /**
      * 资源类型名称color
      */
-    protected static final String RES_TYPE_NAME_COLOR = "color";
+    private static final String RES_TYPE_NAME_COLOR = "color";
 
     /**
      * 资源类型名称drawable
      */
-    protected static final String RES_TYPE_NAME_DRAWABLE = "drawable";
+    private static final String RES_TYPE_NAME_DRAWABLE = "drawable";
 
     /**
      * 资源类型名称mipmap
      */
-    protected static final String RES_TYPE_NAME_MIPMAP = "mipmap";
+    private static final String RES_TYPE_NAME_MIPMAP = "mipmap";
 
     /**
      * 当前View
      */
     protected T view;
 
-    SkinHelper(T view) {
+    public SkinHelper(T view) {
         this.view = view;
     }
 
