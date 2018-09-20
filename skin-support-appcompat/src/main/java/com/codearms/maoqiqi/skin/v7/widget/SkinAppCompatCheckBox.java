@@ -10,7 +10,7 @@ import com.codearms.maoqiqi.skin.helper.SkinViewHelper;
 import com.codearms.maoqiqi.skin.widget.Skinable;
 
 /**
- * 定义SkinSkinAppCompatCheckBox继承SkinAppCompatCheckBox,实现Skinable接口,实现更新皮肤功能
+ * 定义SkinAppCompatCheckBox继承AppCompatCheckBox,实现Skinable接口,实现更新皮肤功能
  * Author: fengqi.mao.march@gmail.com
  * Date: 2018/9/19 14:01
  */
