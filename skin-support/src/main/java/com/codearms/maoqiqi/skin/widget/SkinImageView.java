@@ -36,11 +36,7 @@ public class SkinImageView extends ImageView implements Skinable {
     }
 
     public SkinImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinImageViewHelper = new SkinImageViewHelper(this);

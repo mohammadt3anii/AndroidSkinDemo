@@ -1,6 +1,7 @@
 package com.codearms.maoqiqi.skin.widget;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TimePicker;
 
@@ -29,15 +30,11 @@ public class SkinTimePicker extends TimePicker implements Skinable {
     }
 
     public SkinTimePicker(Context context, AttributeSet attrs) {
-        this(context, attrs, android.R.attr.timePickerStyle);
-    }
-
-    public SkinTimePicker(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinTimePicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs);
+        int defStyleAttr = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            defStyleAttr = android.R.attr.timePickerStyle;
+        }
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinTimePickerHelper = new SkinTimePickerHelper(this);

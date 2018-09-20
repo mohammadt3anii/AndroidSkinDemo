@@ -1,6 +1,7 @@
 package com.codearms.maoqiqi.skin.widget;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.NumberPicker;
 
@@ -29,15 +30,11 @@ public class SkinNumberPicker extends NumberPicker implements Skinable {
     }
 
     public SkinNumberPicker(Context context, AttributeSet attrs) {
-        this(context, attrs, android.R.attr.numberPickerStyle);
-    }
-
-    public SkinNumberPicker(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinNumberPicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs);
+        int defStyleAttr = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            defStyleAttr = android.R.attr.numberPickerStyle;
+        }
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinNumberPickerHelper = new SkinNumberPickerHelper(this);

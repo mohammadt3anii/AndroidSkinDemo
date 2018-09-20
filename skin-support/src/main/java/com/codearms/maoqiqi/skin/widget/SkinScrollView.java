@@ -27,11 +27,7 @@ public class SkinScrollView extends ScrollView implements Skinable {
     }
 
     public SkinScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, 0);
     }

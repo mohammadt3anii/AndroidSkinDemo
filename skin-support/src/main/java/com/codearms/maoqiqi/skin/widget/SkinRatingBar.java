@@ -35,11 +35,7 @@ public class SkinRatingBar extends RatingBar implements Skinable {
     }
 
     public SkinRatingBar(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinRatingBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinProgressBarHelper = new SkinProgressBarHelper(this);

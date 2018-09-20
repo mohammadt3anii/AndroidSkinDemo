@@ -1,6 +1,8 @@
 package com.codearms.maoqiqi.skin.widget;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.widget.TextClock;
 
@@ -12,6 +14,7 @@ import com.codearms.maoqiqi.skin.helper.SkinViewHelper;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2018/9/9 16:34
  */
+@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class SkinTextClock extends TextClock implements Skinable {
 
     /**
@@ -33,11 +36,7 @@ public class SkinTextClock extends TextClock implements Skinable {
     }
 
     public SkinTextClock(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinTextClock(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinTextViewHelper = new SkinTextViewHelper(this);

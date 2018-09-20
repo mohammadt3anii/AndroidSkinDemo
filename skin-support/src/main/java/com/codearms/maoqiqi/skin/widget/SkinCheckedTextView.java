@@ -2,6 +2,7 @@ package com.codearms.maoqiqi.skin.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.CheckedTextView;
 
@@ -37,15 +38,11 @@ public class SkinCheckedTextView extends CheckedTextView implements Skinable {
     }
 
     public SkinCheckedTextView(Context context, AttributeSet attrs) {
-        this(context, attrs, android.R.attr.checkedTextViewStyle);
-    }
-
-    public SkinCheckedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinCheckedTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs);
+        int defStyleAttr = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            defStyleAttr = android.R.attr.checkedTextViewStyle;
+        }
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinTextViewHelper = new SkinTextViewHelper(this);

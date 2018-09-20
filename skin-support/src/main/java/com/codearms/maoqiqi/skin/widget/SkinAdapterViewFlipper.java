@@ -23,17 +23,9 @@ public class SkinAdapterViewFlipper extends AdapterViewFlipper implements Skinab
     }
 
     public SkinAdapterViewFlipper(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public SkinAdapterViewFlipper(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinAdapterViewFlipper(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs);
         skinViewHelper = new SkinViewHelper(this);
-        skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
+        skinViewHelper.loadFromAttribute(attrs, 0);
     }
 
     @Override

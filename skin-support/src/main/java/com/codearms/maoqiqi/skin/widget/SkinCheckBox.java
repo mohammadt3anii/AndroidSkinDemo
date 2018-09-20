@@ -41,11 +41,7 @@ public class SkinCheckBox extends CheckBox implements Skinable {
     }
 
     public SkinCheckBox(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinCheckBox(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinTextViewHelper = new SkinTextViewHelper(this);

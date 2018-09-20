@@ -2,7 +2,6 @@ package com.codearms.maoqiqi.skin.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.widget.Spinner;
 
@@ -44,15 +43,7 @@ public class SkinSpinner extends Spinner implements Skinable {
     }
 
     public SkinSpinner(Context context, AttributeSet attrs, int defStyleAttr, int mode) {
-        this(context, attrs, defStyleAttr, 0, mode);
-    }
-
-    public SkinSpinner(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes, int mode) {
-        this(context, attrs, defStyleAttr, defStyleRes, mode, null);
-    }
-
-    public SkinSpinner(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes, int mode, Resources.Theme popupTheme) {
-        super(context, attrs, defStyleAttr, defStyleRes, mode, popupTheme);
+        super(context, attrs, defStyleAttr, mode);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinSpinnerHelper = new SkinSpinnerHelper(this);

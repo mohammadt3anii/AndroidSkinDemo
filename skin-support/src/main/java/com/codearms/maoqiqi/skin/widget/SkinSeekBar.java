@@ -41,11 +41,7 @@ public class SkinSeekBar extends SeekBar implements Skinable {
     }
 
     public SkinSeekBar(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinSeekBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinProgressBarHelper = new SkinProgressBarHelper(this);
@@ -54,7 +50,7 @@ public class SkinSeekBar extends SeekBar implements Skinable {
         skinSeekBarHelper.loadFromAttribute(attrs, defStyleAttr);
     }
 
-    @Override
+     @Override
     public void setBackgroundResource(int resId) {
         super.setBackgroundResource(resId);
         if (skinViewHelper != null) {

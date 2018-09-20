@@ -33,11 +33,7 @@ public class SkinDatePicker extends DatePicker implements Skinable {
     }
 
     public SkinDatePicker(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinDatePicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinDatePickerHelper = new SkinDatePickerHelper(this);

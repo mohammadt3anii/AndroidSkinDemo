@@ -2,7 +2,6 @@ package com.codearms.maoqiqi.skin.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.widget.AutoCompleteTextView;
 
@@ -42,15 +41,7 @@ public class SkinAutoCompleteTextView extends AutoCompleteTextView implements Sk
     }
 
     public SkinAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        this(context, attrs, defStyleAttr, defStyleRes, null);
-    }
-
-    public SkinAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes, Resources.Theme popupTheme) {
-        super(context, attrs, defStyleAttr, defStyleRes, popupTheme);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinTextViewHelper = new SkinTextViewHelper(this);

@@ -1,6 +1,8 @@
 package com.codearms.maoqiqi.skin.widget;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.widget.Toolbar;
 
@@ -12,6 +14,7 @@ import com.codearms.maoqiqi.skin.helper.SkinViewHelper;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2018/9/17 13:10
  */
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SkinToolbar extends Toolbar implements Skinable {
 
     /**

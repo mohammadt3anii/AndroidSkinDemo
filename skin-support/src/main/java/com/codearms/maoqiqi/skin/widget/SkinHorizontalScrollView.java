@@ -27,13 +27,9 @@ public class SkinHorizontalScrollView extends HorizontalScrollView implements Sk
     }
 
     public SkinHorizontalScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinHorizontalScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
-        skinViewHelper.loadFromAttribute(attrs, 0);
+        skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
     }
 
     @Override

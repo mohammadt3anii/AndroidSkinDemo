@@ -45,11 +45,7 @@ public class SkinExpandableListView extends ExpandableListView implements Skinab
     }
 
     public SkinExpandableListView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinExpandableListView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinAbsListViewHelper = new SkinAbsListViewHelper(this);

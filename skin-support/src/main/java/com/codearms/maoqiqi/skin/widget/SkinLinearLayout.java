@@ -34,11 +34,7 @@ public class SkinLinearLayout extends LinearLayout implements Skinable {
     }
 
     public SkinLinearLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinLinearLayoutHelper = new SkinLinearLayoutHelper(this);

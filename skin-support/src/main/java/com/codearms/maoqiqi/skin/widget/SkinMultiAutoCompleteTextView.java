@@ -41,17 +41,18 @@ public class SkinMultiAutoCompleteTextView extends MultiAutoCompleteTextView imp
     }
 
     public SkinMultiAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public SkinMultiAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinTextViewHelper = new SkinTextViewHelper(this);
         skinTextViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinAutoCompleteTextViewHelper = new SkinAutoCompleteTextViewHelper(this);
         skinAutoCompleteTextViewHelper.loadFromAttribute(attrs, defStyleAttr);
+    }
+
+    public SkinMultiAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+
     }
 
     @Override
