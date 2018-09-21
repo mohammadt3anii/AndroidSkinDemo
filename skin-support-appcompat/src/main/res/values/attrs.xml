@@ -7,4 +7,14 @@
         <attr name="track" />
         <attr name="trackTint" />
     </declare-styleable>
+    <declare-styleable name="SkinToolbarHelper">
+        <attr name="titleTextAppearance" />
+        <attr name="subtitleTextAppearance" />
+        <attr name="titleTextColor" />
+        <attr name="subtitleTextColor" />
+        <attr name="logo" />
+        <attr name="navigationIcon" />
+        <attr name="collapseIcon" />
+        <attr name="popupTheme" />
+    </declare-styleable>
 </resources>
