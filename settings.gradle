@@ -1,1 +1,1 @@
-include ':skin-app', ':skin-support', ':skin-support-appcompat'
+include ':skin-app', ':skin-support', ':skin-support-appcompat', ':skin-support-recyclerview'
