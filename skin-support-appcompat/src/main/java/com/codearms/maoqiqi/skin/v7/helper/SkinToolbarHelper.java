@@ -12,6 +12,11 @@ import com.codearms.maoqiqi.skin.v7.R;
 
 import java.lang.reflect.Field;
 
+/**
+ * Toolbar更新皮肤帮助类,Toolbar及子类都可以使用该帮助类
+ * Author: fengqi.mao.march@gmail.com
+ * Date: 2018/9/21 10:20
+ */
 public class SkinToolbarHelper extends SkinHelper<Toolbar> {
 
     private int titleTextAppearanceResId = INVALID_RESOURCES;
