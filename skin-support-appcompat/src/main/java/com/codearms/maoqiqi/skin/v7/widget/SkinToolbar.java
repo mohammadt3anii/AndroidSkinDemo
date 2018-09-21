@@ -9,6 +9,11 @@ import com.codearms.maoqiqi.skin.helper.SkinViewHelper;
 import com.codearms.maoqiqi.skin.v7.helper.SkinToolbarHelper;
 import com.codearms.maoqiqi.skin.widget.Skinable;
 
+/**
+ * 定义SkinToolbar继承Toolbar,实现Skinable接口,实现更新皮肤功能
+ * Author: fengqi.mao.march@gmail.com
+ * Date: 2018/9/21 10:28
+ */
 public class SkinToolbar extends Toolbar implements Skinable {
 
     /**

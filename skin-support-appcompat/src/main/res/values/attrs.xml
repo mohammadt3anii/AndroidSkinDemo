@@ -17,4 +17,14 @@
         <attr name="collapseIcon" />
         <attr name="popupTheme" />
     </declare-styleable>
+    <declare-styleable name="SkinSearchViewHelper">
+        <attr name="queryBackground" />
+        <attr name="submitBackground" />
+        <attr name="searchIcon" />
+        <attr name="searchHintIcon" />
+        <attr name="closeIcon" />
+        <attr name="goIcon" />
+        <attr name="voiceIcon" />
+        <attr name="commitIcon" />
+    </declare-styleable>
 </resources>
