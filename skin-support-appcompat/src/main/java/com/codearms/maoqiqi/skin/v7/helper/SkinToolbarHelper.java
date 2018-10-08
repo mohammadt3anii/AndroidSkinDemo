@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 
 import com.codearms.maoqiqi.skin.helper.SkinHelper;
-import com.codearms.maoqiqi.skin.v7.R;
+import com.codearms.maoqiqi.skin.appcompat.R;
 
 import java.lang.reflect.Field;
 

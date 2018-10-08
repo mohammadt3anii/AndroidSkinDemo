@@ -5,8 +5,8 @@ import android.content.res.TypedArray;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
+import com.codearms.maoqiqi.skin.cardview.R;
 import com.codearms.maoqiqi.skin.helper.SkinHelper;
-import com.codearms.maoqiqi.skin.v7.R;
 
 /**
  * CardView更新皮肤帮助类,CardView及子类都可以使用该帮助类
