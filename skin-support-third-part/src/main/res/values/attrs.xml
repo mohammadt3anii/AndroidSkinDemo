@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SkinCircleImageViewHelper">
+        <attr name="civ_circle_background_color" />
+        <attr name="civ_border_color" />
+    </declare-styleable>
+</resources>
