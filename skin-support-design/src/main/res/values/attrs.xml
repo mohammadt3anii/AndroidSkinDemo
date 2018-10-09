@@ -23,4 +23,11 @@
         <attr name="itemIconTint" />
         <attr name="itemTextColor" />
     </declare-styleable>
+    <declare-styleable name="SkinTabLayoutHelper">
+        <attr name="tabBackground" />
+        <attr name="tabIndicatorColor" />
+        <attr name="tabTextAppearance" />
+        <attr name="tabTextColor" />
+        <attr name="tabSelectedTextColor" />
+    </declare-styleable>
 </resources>
