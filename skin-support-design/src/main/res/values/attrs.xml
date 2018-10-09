@@ -9,4 +9,7 @@
         <attr name="contentScrim" />
         <attr name="statusBarScrim" />
     </declare-styleable>
+    <declare-styleable name="SkinFloatingActionButtonHelper">
+        <attr name="rippleColor" />
+    </declare-styleable>
 </resources>
