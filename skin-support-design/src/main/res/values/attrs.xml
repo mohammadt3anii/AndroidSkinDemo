@@ -17,4 +17,10 @@
         <attr name="itemIconTint" />
         <attr name="itemTextColor" />
     </declare-styleable>
+    <declare-styleable name="SkinNavigationViewHelper">
+        <attr name="itemTextAppearance" />
+        <attr name="itemBackground" />
+        <attr name="itemIconTint" />
+        <attr name="itemTextColor" />
+    </declare-styleable>
 </resources>
