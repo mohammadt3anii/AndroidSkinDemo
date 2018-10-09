@@ -12,4 +12,9 @@
     <declare-styleable name="SkinFloatingActionButtonHelper">
         <attr name="rippleColor" />
     </declare-styleable>
+    <declare-styleable name="SkinBottomNavigationViewHelper">
+        <attr name="itemBackground" />
+        <attr name="itemIconTint" />
+        <attr name="itemTextColor" />
+    </declare-styleable>
 </resources>
