@@ -3,4 +3,10 @@
     <declare-styleable name="SkinCoordinatorLayoutHelper">
         <attr name="statusBarBackground" />
     </declare-styleable>
+    <declare-styleable name="SkinCollapsingToolbarLayoutHelper">
+        <attr name="expandedTitleTextAppearance" />
+        <attr name="collapsedTitleTextAppearance" />
+        <attr name="contentScrim" />
+        <attr name="statusBarScrim" />
+    </declare-styleable>
 </resources>
