@@ -55,7 +55,9 @@ public class SkinNumberPickerHelper extends SkinHelper<NumberPicker> {
             Field fVirtualButtonPressedDrawable = NumberPicker.class.getDeclaredField(name);
             fVirtualButtonPressedDrawable.setAccessible(true);
             fVirtualButtonPressedDrawable.set(view, drawable);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -90,7 +92,9 @@ public class SkinNumberPickerHelper extends SkinHelper<NumberPicker> {
             Field fVirtualButtonPressedDrawable = NumberPicker.class.getDeclaredField(name);
             fVirtualButtonPressedDrawable.setAccessible(true);
             fVirtualButtonPressedDrawable.set(view, color);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -120,7 +124,9 @@ public class SkinNumberPickerHelper extends SkinHelper<NumberPicker> {
             Field fVirtualButtonPressedDrawable = NumberPicker.class.getDeclaredField(name);
             fVirtualButtonPressedDrawable.setAccessible(true);
             fVirtualButtonPressedDrawable.set(view, drawable);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
