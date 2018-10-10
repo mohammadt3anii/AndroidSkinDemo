@@ -30,4 +30,13 @@
         <attr name="tabTextColor" />
         <attr name="tabSelectedTextColor" />
     </declare-styleable>
+    <declare-styleable name="SkinTextInputLayoutHelper">
+        <attr name="android:textColorHint" />
+        <attr name="hintTextAppearance" />
+        <attr name="errorTextAppearance" />
+        <attr name="counterTextAppearance" />
+        <attr name="counterOverflowTextAppearance" />
+        <attr name="passwordToggleDrawable" />
+        <attr name="passwordToggleTint" />
+    </declare-styleable>
 </resources>
