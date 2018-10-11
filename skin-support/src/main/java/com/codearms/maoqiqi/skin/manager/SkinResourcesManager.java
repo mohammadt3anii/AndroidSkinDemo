@@ -395,13 +395,13 @@ public class SkinResourcesManager {
         int color = getColorFromCache(getKeyByResId(resId));
         if (color == 0) {
             if (isUseDefaultResources) {
-                color = resources.getColor(resId, null);
+                color = resources.getColor(resId);
             } else {
                 int targetResId = getTargetResId(resId);
                 if (targetResId == INVALID_RESOURCES) {
-                    color = resources.getColor(resId, null);
+                    color = resources.getColor(resId);
                 } else {
-                    color = skinResources.getColor(targetResId, null);
+                    color = skinResources.getColor(targetResId);
                 }
             }
             if (color != INVALID_RESOURCES) {
@@ -422,13 +422,21 @@ public class SkinResourcesManager {
         Drawable drawable = getDrawableFromCache(getKeyByResId(resId));
         if (drawable == null) {
             if (isUseDefaultResources) {
-                drawable = resources.getDrawable(resId, null);
+                drawable = resources.getDrawable(resId);
             } else {
                 int targetResId = getTargetResId(resId);
                 if (targetResId == INVALID_RESOURCES) {
-                    drawable = resources.getDrawable(resId, null);
+                    try {
+                        drawable = resources.getDrawable(resId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    drawable = skinResources.getDrawable(targetResId, null);
+                    try {
+                        drawable = skinResources.getDrawable(targetResId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             if (drawable != null) {
@@ -449,13 +457,13 @@ public class SkinResourcesManager {
         ColorStateList colorStateList = getColorStateListFromCache(getKeyByResId(resId));
         if (colorStateList == null) {
             if (isUseDefaultResources) {
-                colorStateList = resources.getColorStateList(resId, null);
+                colorStateList = resources.getColorStateList(resId);
             } else {
                 int targetResId = getTargetResId(resId);
                 if (targetResId == INVALID_RESOURCES) {
-                    colorStateList = resources.getColorStateList(resId, null);
+                    colorStateList = resources.getColorStateList(resId);
                 } else {
-                    colorStateList = skinResources.getColorStateList(targetResId, null);
+                    colorStateList = skinResources.getColorStateList(targetResId);
                 }
             }
             if (colorStateList != null) {
