@@ -1,12 +1,9 @@
 package com.codearms.maoqiqi.skin.helper;
 
-import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.NumberPicker;
-
-import com.codearms.maoqiqi.skin.R;
 
 import java.lang.reflect.Field;
 
@@ -27,7 +24,7 @@ public class SkinNumberPickerHelper extends SkinHelper<NumberPicker> {
 
     @Override
     public void loadFromAttribute(AttributeSet attrs, int defStyleAttr) {
-        TypedArray a = view.getContext().obtainStyledAttributes(attrs, R.styleable.SkinNumberPickerHelper, defStyleAttr, 0);
+        /*TypedArray a = view.getContext().obtainStyledAttributes(attrs, R.styleable.SkinNumberPickerHelper, defStyleAttr, 0);
         try {
             if (a.hasValue(R.styleable.SkinNumberPickerHelper_android_solidColor)) {
                 solidColorResId = a.getResourceId(R.styleable.SkinNumberPickerHelper_android_solidColor, INVALID_RESOURCES);
@@ -40,7 +37,7 @@ public class SkinNumberPickerHelper extends SkinHelper<NumberPicker> {
             }
         } finally {
             a.recycle();
-        }
+        }*/
     }
 
     /**
