@@ -16,8 +16,8 @@ import com.codearms.maoqiqi.skin.manager.SkinManager;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 创建视图
@@ -55,7 +55,7 @@ public final class AppCompatViewInflater {
      */
     private View createViewByLayoutInflater(View parent, final String name, Context context, AttributeSet attrs) {
         View view;
-        Set<SkinLayoutInflater> skinLayoutInflaters = SkinManager.getInstance().getSkinLayoutInflaters();
+        List<SkinLayoutInflater> skinLayoutInflaters = SkinManager.getInstance().getSkinLayoutInflaters();
         if (!skinLayoutInflaters.isEmpty()) {
             for (SkinLayoutInflater layoutInflater : skinLayoutInflaters) {
                 view = layoutInflater.createView(parent, name, context, attrs);

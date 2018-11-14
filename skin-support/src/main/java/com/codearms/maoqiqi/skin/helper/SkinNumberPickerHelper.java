@@ -24,20 +24,17 @@ public class SkinNumberPickerHelper extends SkinHelper<NumberPicker> {
 
     @Override
     public void loadFromAttribute(AttributeSet attrs, int defStyleAttr) {
-        /*TypedArray a = view.getContext().obtainStyledAttributes(attrs, R.styleable.SkinNumberPickerHelper, defStyleAttr, 0);
-        try {
-            if (a.hasValue(R.styleable.SkinNumberPickerHelper_android_solidColor)) {
-                solidColorResId = a.getResourceId(R.styleable.SkinNumberPickerHelper_android_solidColor, INVALID_RESOURCES);
+        for (int i = 0; i < attrs.getAttributeCount(); i++) {
+            if (attrs.getAttributeName(i).equals("solidColor")) {
+                String attrValue = attrs.getAttributeValue(i);
+                // 判断属性值是否是以为@开头,@开头的是引用资源
+                if (attrValue.startsWith("@")) {
+                    solidColorResId = Integer.parseInt(attrValue.substring(1));
+                    break;
+                }
             }
-            if (a.hasValue(R.styleable.SkinNumberPickerHelper_android_selectionDivider)) {
-                selectionDividerResId = a.getResourceId(R.styleable.SkinNumberPickerHelper_android_selectionDivider, INVALID_RESOURCES);
-            }
-            if (a.hasValue(R.styleable.SkinNumberPickerHelper_android_virtualButtonPressedDrawable)) {
-                virtualButtonPressedDrawableResId = a.getResourceId(R.styleable.SkinNumberPickerHelper_android_virtualButtonPressedDrawable, INVALID_RESOURCES);
-            }
-        } finally {
-            a.recycle();
-        }*/
+        }
+        updateSkin();
     }
 
     /**
@@ -63,7 +60,7 @@ public class SkinNumberPickerHelper extends SkinHelper<NumberPicker> {
      * 应用selectionDivider
      */
     private void applySupportSelectionDivider() {
-        if (selectionDividerResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(selectionDividerResId)) return;
         String typeName = getTypeName(selectionDividerResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -100,7 +97,7 @@ public class SkinNumberPickerHelper extends SkinHelper<NumberPicker> {
      * 应用solidColor
      */
     private void applySupportSolidColor() {
-        if (solidColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(solidColorResId)) return;
         String typeName = getTypeName(solidColorResId);
         if (isColor(typeName)) {
             int color = getColor(solidColorResId);
@@ -132,7 +129,7 @@ public class SkinNumberPickerHelper extends SkinHelper<NumberPicker> {
      * 应用virtualButtonPressedDrawable
      */
     private void applySupportVirtualButtonPressedDrawable() {
-        if (virtualButtonPressedDrawableResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(virtualButtonPressedDrawableResId)) return;
         String typeName = getTypeName(virtualButtonPressedDrawableResId);
         Drawable drawable = null;
         if (isColor(typeName)) {

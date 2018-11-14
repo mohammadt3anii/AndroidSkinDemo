@@ -36,6 +36,7 @@ public class SkinCheckedTextViewHelper extends SkinHelper<CheckedTextView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -52,7 +53,7 @@ public class SkinCheckedTextViewHelper extends SkinHelper<CheckedTextView> {
      * 应用CheckMark
      */
     private void applyCheckMark() {
-        if (checkMarkResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(checkMarkResId)) return;
         String typeName = getTypeName(checkMarkResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -70,12 +71,13 @@ public class SkinCheckedTextViewHelper extends SkinHelper<CheckedTextView> {
      * 应用CheckMark着色
      */
     private void applyCheckMarkTint() {
-        if (checkMarkTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(checkMarkTintResId)) return;
         String typeName = getTypeName(checkMarkTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(checkMarkTintResId);
             if (colorStateList == null) return;
-            if (IS_LOLLIPOP) {
+            // 与系统保持一致(24才有效果)
+            if (IS_NOUGAT) {
                 view.setCheckMarkTintList(colorStateList);
             }
         }

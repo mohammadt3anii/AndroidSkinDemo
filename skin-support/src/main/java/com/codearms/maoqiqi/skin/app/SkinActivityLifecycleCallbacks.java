@@ -73,6 +73,10 @@ public class SkinActivityLifecycleCallbacks implements Application.ActivityLifec
             setFactory(activity);
             // 订阅皮肤更新通知
             SkinManager.getInstance().addObserver(getSkinObserver(activity));
+            // 更新状态栏
+            getSkinLayoutInflaterFactory(activity).updateStatusBarColor();
+            // 皮肤更新回调
+            getSkinLayoutInflaterFactory(activity).skinChangedCallBack();
         }
     }
 
@@ -83,8 +87,8 @@ public class SkinActivityLifecycleCallbacks implements Application.ActivityLifec
 
     @Override
     public void onActivityResumed(Activity activity) {
+        currentActivityRef = new WeakReference<>(activity);
         if (isSkinEnable(activity)) {
-            currentActivityRef = new WeakReference<>(activity);
             // 如果需要,更新皮肤
             getSkinObserver(activity).updateSkinIfNeeded();
         }

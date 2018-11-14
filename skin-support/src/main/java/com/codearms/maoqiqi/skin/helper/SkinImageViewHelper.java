@@ -4,6 +4,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.widget.ImageViewCompat;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -40,6 +41,7 @@ public class SkinImageViewHelper extends SkinHelper<ImageView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -56,7 +58,7 @@ public class SkinImageViewHelper extends SkinHelper<ImageView> {
      * 应用图片
      */
     private void applySupportSrc() {
-        if (srcResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(srcResId)) return;
         String typeName = getTypeName(srcResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -74,7 +76,7 @@ public class SkinImageViewHelper extends SkinHelper<ImageView> {
      * 应用图片
      */
     private void applySupportSrcCompat() {
-        if (srcCompatResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(srcCompatResId)) return;
         String typeName = getTypeName(srcCompatResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -92,21 +94,19 @@ public class SkinImageViewHelper extends SkinHelper<ImageView> {
      * 应用图片着色
      */
     private void applySupportTint() {
-        if (tintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(tintResId)) return;
         String typeName = getTypeName(tintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(tintResId);
             if (colorStateList == null) return;
-            if (IS_LOLLIPOP) {
-                view.setImageTintList(colorStateList);
-            }
+            ImageViewCompat.setImageTintList(view, colorStateList);
         }
     }
 
     @Override
     public void updateSkin() {
-        applySupportSrc();
         applySupportSrcCompat();
+        applySupportSrc();
         applySupportTint();
     }
 }

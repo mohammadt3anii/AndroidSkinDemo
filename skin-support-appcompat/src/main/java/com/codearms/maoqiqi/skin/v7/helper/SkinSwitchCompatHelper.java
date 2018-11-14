@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 
-import com.codearms.maoqiqi.skin.helper.SkinHelper;
 import com.codearms.maoqiqi.skin.appcompat.R;
+import com.codearms.maoqiqi.skin.helper.SkinHelper;
 
 import java.lang.reflect.Field;
 
@@ -52,13 +52,14 @@ public class SkinSwitchCompatHelper extends SkinHelper<SwitchCompat> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
      * 解析SkinTextAppearance,获取属性值
      */
     private void obtainTextAppearance() {
-        if (switchTextAppearanceResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(switchTextAppearanceResId)) return;
         TypedArray a = view.getContext().obtainStyledAttributes(switchTextAppearanceResId, com.codearms.maoqiqi.skin.R.styleable.SkinTextAppearance);
         try {
             if (a.hasValue(com.codearms.maoqiqi.skin.R.styleable.SkinTextAppearance_android_textColor)) {
@@ -76,7 +77,6 @@ public class SkinSwitchCompatHelper extends SkinHelper<SwitchCompat> {
      */
     public void setSupportSwitchTextAppearance(int resId) {
         switchTextAppearanceResId = resId;
-        if (switchTextAppearanceResId == INVALID_RESOURCES) return;
         obtainTextAppearance();
         applySupportSwitchTextColor();
     }
@@ -124,7 +124,7 @@ public class SkinSwitchCompatHelper extends SkinHelper<SwitchCompat> {
      * 应用Switch文本颜色
      */
     private void applySupportSwitchTextColor() {
-        if (switchTextColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(switchTextColorResId)) return;
         String typeName = getTypeName(switchTextColorResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(switchTextColorResId);
@@ -137,7 +137,7 @@ public class SkinSwitchCompatHelper extends SkinHelper<SwitchCompat> {
      * 应用Thumb
      */
     private void applySupportThumb() {
-        if (thumbResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(thumbResId)) return;
         String typeName = getTypeName(thumbResId);
         if (isDrawable(typeName)) {
             Drawable drawable = getDrawable(thumbResId);
@@ -150,7 +150,7 @@ public class SkinSwitchCompatHelper extends SkinHelper<SwitchCompat> {
      * 应用Track
      */
     private void applySupportTrack() {
-        if (trackResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(trackResId)) return;
         String typeName = getTypeName(trackResId);
         if (isDrawable(typeName)) {
             Drawable drawable = getDrawable(trackResId);
@@ -163,7 +163,7 @@ public class SkinSwitchCompatHelper extends SkinHelper<SwitchCompat> {
      * 应用Thumb着色
      */
     private void applySupportThumbTint() {
-        if (thumbTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(thumbTintResId)) return;
         String typeName = getTypeName(thumbTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(thumbTintResId);
@@ -176,7 +176,7 @@ public class SkinSwitchCompatHelper extends SkinHelper<SwitchCompat> {
      * 应用Track着色
      */
     private void applySupportTrackTint() {
-        if (trackTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(trackTintResId)) return;
         String typeName = getTypeName(trackTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(trackTintResId);

@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.codearms.maoqiqi.skin.manager.SkinPreferencesManager;
 import com.codearms.maoqiqi.skin.manager.SkinResourcesManager;
 
 /**
@@ -19,6 +20,11 @@ public abstract class SkinHelper<T extends View> {
      * 无效的资源
      */
     protected static final int INVALID_RESOURCES = 0;
+
+    /**
+     * 系统自带资源
+     */
+    private static final String SYSTEM_ID_PREFIX = "1";
 
     /**
      * 资源类型名称color
@@ -81,6 +87,32 @@ public abstract class SkinHelper<T extends View> {
      * 抽象方法,对外提供更新皮肤的方法
      */
     public abstract void updateSkin();
+
+    /**
+     * 根据resId判断是否不需要换肤
+     * 1. 无效的资源
+     * 2. 系统自带的资源
+     * 3. 默认皮肤&&资源entryName以abc_开头
+     * 4. 没有对应的换肤资源
+     *
+     * @param resId resource id
+     * @return true:不需要 false:需要
+     */
+    protected final boolean isNotNeedSkin(int resId) {
+        return resId == INVALID_RESOURCES || Integer.toHexString(resId).startsWith(SYSTEM_ID_PREFIX)
+                || (SkinPreferencesManager.getInstance().isDefaultSkin() && getEntryName(resId).startsWith("abc_"))
+                || SkinResourcesManager.getInstance().getTargetResId(resId) == INVALID_RESOURCES;
+    }
+
+    /**
+     * 得到资源id的entryName
+     *
+     * @param resId resource id
+     * @return entryName
+     */
+    protected String getEntryName(int resId) {
+        return SkinResourcesManager.getInstance().getEntryName(resId);
+    }
 
     /**
      * 得到资源id的typeName

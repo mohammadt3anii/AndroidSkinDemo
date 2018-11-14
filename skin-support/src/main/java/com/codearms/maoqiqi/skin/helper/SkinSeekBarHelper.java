@@ -44,13 +44,14 @@ public class SkinSeekBarHelper extends SkinHelper<SeekBar> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
      * 应用Thumb
      */
     private void applySupportThumb() {
-        if (thumbResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(thumbResId)) return;
         String typeName = getTypeName(thumbResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -68,7 +69,7 @@ public class SkinSeekBarHelper extends SkinHelper<SeekBar> {
      * 应用TickMark
      */
     private void applySupportTickMark() {
-        if (tickMarkResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(tickMarkResId)) return;
         String typeName = getTypeName(tickMarkResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -88,7 +89,7 @@ public class SkinSeekBarHelper extends SkinHelper<SeekBar> {
      * 应用Thumb着色
      */
     private void applySupportThumbTint() {
-        if (thumbTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(thumbTintResId)) return;
         String typeName = getTypeName(thumbTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(thumbTintResId);
@@ -103,7 +104,7 @@ public class SkinSeekBarHelper extends SkinHelper<SeekBar> {
      * 应用TickMark着色
      */
     private void applySupportTickMarkTint() {
-        if (tickMarkTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(tickMarkTintResId)) return;
         String typeName = getTypeName(tickMarkTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(tickMarkTintResId);

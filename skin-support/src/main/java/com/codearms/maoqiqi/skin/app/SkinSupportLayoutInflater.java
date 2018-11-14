@@ -13,6 +13,7 @@ import com.codearms.maoqiqi.skin.widget.SkinCheckBox;
 import com.codearms.maoqiqi.skin.widget.SkinCheckedTextView;
 import com.codearms.maoqiqi.skin.widget.SkinDatePicker;
 import com.codearms.maoqiqi.skin.widget.SkinEditText;
+import com.codearms.maoqiqi.skin.widget.SkinExpandableListView;
 import com.codearms.maoqiqi.skin.widget.SkinFrameLayout;
 import com.codearms.maoqiqi.skin.widget.SkinGallery;
 import com.codearms.maoqiqi.skin.widget.SkinGridLayout;
@@ -181,6 +182,9 @@ public class SkinSupportLayoutInflater implements SkinLayoutInflater {
                 break;
             case "ListView":
                 view = new SkinListView(context, attrs);
+                break;
+            case "ExpandableListView":
+                view = new SkinExpandableListView(context, attrs);
                 break;
             case "GridView":
                 view = new SkinGridView(context, attrs);

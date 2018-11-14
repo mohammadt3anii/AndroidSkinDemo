@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="SkinLinearLayoutCompatHelper">
+        <attr name="divider" />
+    </declare-styleable>
     <declare-styleable name="SkinSwitchCompatHelper">
         <attr name="switchTextAppearance" />
         <attr name="android:thumb" />

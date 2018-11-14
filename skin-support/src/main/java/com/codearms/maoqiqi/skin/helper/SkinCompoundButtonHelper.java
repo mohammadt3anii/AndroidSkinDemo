@@ -4,6 +4,8 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.widget.CompoundButtonCompat;
+import android.support.v4.widget.TintableCompoundButton;
 import android.util.AttributeSet;
 import android.widget.CompoundButton;
 
@@ -18,6 +20,7 @@ public class SkinCompoundButtonHelper extends SkinHelper<CompoundButton> {
 
     private int buttonResId = INVALID_RESOURCES;
     private int buttonTintResId = INVALID_RESOURCES;
+    private int appButtonTintResId = INVALID_RESOURCES;
 
     public SkinCompoundButtonHelper(CompoundButton view) {
         super(view);
@@ -33,9 +36,13 @@ public class SkinCompoundButtonHelper extends SkinHelper<CompoundButton> {
             if (a.hasValue(R.styleable.SkinCompoundButtonHelper_android_buttonTint)) {
                 buttonTintResId = a.getResourceId(R.styleable.SkinCompoundButtonHelper_android_buttonTint, INVALID_RESOURCES);
             }
+            if (a.hasValue(R.styleable.SkinCompoundButtonHelper_buttonTint)) {
+                appButtonTintResId = a.getResourceId(R.styleable.SkinCompoundButtonHelper_buttonTint, INVALID_RESOURCES);
+            }
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -52,7 +59,7 @@ public class SkinCompoundButtonHelper extends SkinHelper<CompoundButton> {
      * 应用CompoundButton Drawable
      */
     private void applySupportButton() {
-        if (buttonResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(buttonResId)) return;
         String typeName = getTypeName(buttonResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -70,13 +77,34 @@ public class SkinCompoundButtonHelper extends SkinHelper<CompoundButton> {
      * 应用CompoundButton Drawable着色
      */
     private void applySupportButtonTint() {
-        if (buttonTintResId == INVALID_RESOURCES) return;
-        String typeName = getTypeName(buttonTintResId);
-        if (isColor(typeName)) {
-            ColorStateList colorStateList = getColorStateList(buttonTintResId);
-            if (colorStateList == null) return;
-            if (IS_LOLLIPOP) {
-                view.setButtonTintList(colorStateList);
+        if (IS_LOLLIPOP) {
+            // RadioButton CheckBox 和 ToggleButton 使用 buttonTintResId
+            if (!isNotNeedSkin(buttonTintResId)) {
+                String typeName = getTypeName(buttonTintResId);
+                if (isColor(typeName)) {
+                    ColorStateList colorStateList = getColorStateList(buttonTintResId);
+                    if (colorStateList != null) view.setButtonTintList(colorStateList);
+                }
+            }
+
+            // 如果是 AppCompatRadioButton 和 AppCompatCheckBox,并且窜在 appButtonTintResId 便使用
+            if (view instanceof TintableCompoundButton) {
+                if (isNotNeedSkin(appButtonTintResId)) return;
+                String typeName = getTypeName(appButtonTintResId);
+                if (isColor(typeName)) {
+                    ColorStateList colorStateList = getColorStateList(appButtonTintResId);
+                    if (colorStateList != null) view.setButtonTintList(colorStateList);
+                }
+            }
+        } else {
+            if (view instanceof TintableCompoundButton) {
+                if (isNotNeedSkin(appButtonTintResId)) return;
+                String typeName = getTypeName(appButtonTintResId);
+                if (isColor(typeName)) {
+                    ColorStateList colorStateList = getColorStateList(appButtonTintResId);
+                    if (colorStateList == null) return;
+                    ((TintableCompoundButton) view).setSupportButtonTintList(colorStateList);
+                }
             }
         }
     }

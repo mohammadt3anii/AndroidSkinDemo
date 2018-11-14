@@ -42,6 +42,7 @@ public class SkinSpinnerHelper extends SkinHelper<Spinner> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -58,14 +59,14 @@ public class SkinSpinnerHelper extends SkinHelper<Spinner> {
      *
      */
     private void applySupportPopupTheme() {
-
+        // TODO: 18/10/28 待完善
     }
 
     /**
      * 应用popup背景
      */
     private void applySupportPopupBackground() {
-        if (popupBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(popupBackgroundResId)) return;
         String typeName = getTypeName(popupBackgroundResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -92,8 +93,11 @@ public class SkinSpinnerHelper extends SkinHelper<Spinner> {
             String name = "mPopup";
             Field fPopup = Spinner.class.getDeclaredField(name);
             fPopup.setAccessible(true);
-            ListPopupWindow popup = (ListPopupWindow) fPopup.get(view);
-            popup.setListSelector(drawable);
+            Object o = fPopup.get(view);
+            if (o instanceof ListPopupWindow) {
+                ListPopupWindow popup = (ListPopupWindow) o;
+                popup.setListSelector(drawable);
+            }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
@@ -105,7 +109,7 @@ public class SkinSpinnerHelper extends SkinHelper<Spinner> {
      * 应用popup项的背景
      */
     private void applySupportDropDownSelector() {
-        if (dropDownSelectorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(dropDownSelectorResId)) return;
         String typeName = getTypeName(dropDownSelectorResId);
         Drawable drawable = null;
         if (isColor(typeName)) {

@@ -36,6 +36,7 @@ public class SkinCalendarViewHelper extends SkinHelper<CalendarView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -70,7 +71,7 @@ public class SkinCalendarViewHelper extends SkinHelper<CalendarView> {
      * 应用WeekDay文本样式
      */
     private void applySupportWeekDayTextAppearance() {
-        if (weekDayTextAppearanceResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(weekDayTextAppearanceResId)) return;
         int id = getTargetResId(weekDayTextAppearanceResId);
         if (id == 0) id = weekDayTextAppearanceResId;
         isApplyWeekDayTextAppearance = false;
@@ -83,7 +84,7 @@ public class SkinCalendarViewHelper extends SkinHelper<CalendarView> {
      * 应用Date文本样式
      */
     private void applySupportDateTextAppearance() {
-        if (dateTextAppearanceResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(dateTextAppearanceResId)) return;
         int id = getTargetResId(dateTextAppearanceResId);
         if (id == 0) id = dateTextAppearanceResId;
         isApplyDateTextAppearance = false;

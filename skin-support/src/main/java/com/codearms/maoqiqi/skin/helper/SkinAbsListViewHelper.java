@@ -31,6 +31,7 @@ public class SkinAbsListViewHelper extends SkinHelper<AbsListView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -47,7 +48,7 @@ public class SkinAbsListViewHelper extends SkinHelper<AbsListView> {
      * 应用Selector
      */
     private void applySupportSelector() {
-        if (listSelectorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(listSelectorResId)) return;
         String typeName = getTypeName(listSelectorResId);
         Drawable drawable = null;
         if (isColor(typeName)) {

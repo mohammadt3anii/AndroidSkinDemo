@@ -8,6 +8,8 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 
 import com.codearms.maoqiqi.skin.R;
 
@@ -66,6 +68,7 @@ public class SkinViewHelper extends SkinHelper<View> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -82,16 +85,22 @@ public class SkinViewHelper extends SkinHelper<View> {
      * 应用背景资源
      */
     private void applySupportBackground() {
-        if (backgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(backgroundResId)) return;
+        int left = view.getPaddingLeft();
+        int top = view.getPaddingTop();
+        int right = view.getPaddingRight();
+        int bottom = view.getPaddingBottom();
         String typeName = getTypeName(backgroundResId);
         if (isColor(typeName)) {
             int color = getColor(backgroundResId);
             if (color == 0) return;
             view.setBackgroundColor(color);
+            view.setPadding(left, top, right, bottom);
         } else if (isDrawable(typeName)) {
             Drawable drawable = getDrawable(backgroundResId);
             if (drawable == null) return;
             ViewCompat.setBackground(view, drawable);
+            view.setPadding(left, top, right, bottom);
         }
     }
 
@@ -99,7 +108,7 @@ public class SkinViewHelper extends SkinHelper<View> {
      * 应用背景着色
      */
     private void applySupportBackgroundTint() {
-        if (backgroundTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(backgroundTintResId)) return;
         String typeName = getTypeName(backgroundTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(backgroundTintResId);
@@ -112,7 +121,7 @@ public class SkinViewHelper extends SkinHelper<View> {
      * 应用前景资源
      */
     private void applySupportForeground() {
-        if (foregroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(foregroundResId)) return;
         String typeName = getTypeName(foregroundResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -137,7 +146,7 @@ public class SkinViewHelper extends SkinHelper<View> {
      * 应用前景着色
      */
     private void applySupportForegroundTint() {
-        if (foregroundTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(foregroundTintResId)) return;
         String typeName = getTypeName(foregroundTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(foregroundTintResId);
@@ -167,6 +176,7 @@ public class SkinViewHelper extends SkinHelper<View> {
      * @param drawable 需要赋值的资源
      */
     private void setScrollBarDrawable(View view, int index, Drawable drawable) {
+        if (!(view instanceof ScrollView || view instanceof HorizontalScrollView)) return;
         String[] names = {"setVerticalThumbDrawable", "setVerticalTrackDrawable",
                 "setHorizontalThumbDrawable", "setHorizontalTrackDrawable"};
         try {
@@ -197,7 +207,7 @@ public class SkinViewHelper extends SkinHelper<View> {
      * 应用垂直滚动条的drawable
      */
     private void applySupportScrollBarVerticalThumbDrawable() {
-        if (scrollbarThumbVerticalResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(scrollbarThumbVerticalResId)) return;
         String typeName = getTypeName(scrollbarThumbVerticalResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -216,7 +226,7 @@ public class SkinViewHelper extends SkinHelper<View> {
      * 应用垂直滚动条背景(轨迹)的drawable
      */
     private void applySupportScrollBarVerticalTrackDrawable() {
-        if (scrollbarTrackVerticalResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(scrollbarTrackVerticalResId)) return;
         String typeName = getTypeName(scrollbarTrackVerticalResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -235,7 +245,7 @@ public class SkinViewHelper extends SkinHelper<View> {
      * 应用水平滚动条的drawable
      */
     private void applySupportScrollBarHorizontalThumbDrawable() {
-        if (scrollbarThumbHorizontalResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(scrollbarThumbHorizontalResId)) return;
         String typeName = getTypeName(scrollbarThumbHorizontalResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -254,7 +264,7 @@ public class SkinViewHelper extends SkinHelper<View> {
      * 应用水平滚动条背景(轨迹)的drawable
      */
     private void applySupportScrollBarHorizontalTrackDrawable() {
-        if (scrollbarTrackHorizontalResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(scrollbarTrackHorizontalResId)) return;
         String typeName = getTypeName(scrollbarTrackHorizontalResId);
         Drawable drawable = null;
         if (isColor(typeName)) {

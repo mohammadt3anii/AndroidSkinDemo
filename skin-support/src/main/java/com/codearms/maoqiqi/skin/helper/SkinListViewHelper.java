@@ -4,6 +4,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.codearms.maoqiqi.skin.R;
@@ -31,13 +32,14 @@ public class SkinListViewHelper extends SkinHelper<ListView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
      * 应用Divider
      */
     private void applySupportDivider() {
-        if (dividerResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(dividerResId)) return;
         String typeName = getTypeName(dividerResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -48,7 +50,11 @@ public class SkinListViewHelper extends SkinHelper<ListView> {
             drawable = getDrawable(dividerResId);
         }
         if (drawable == null) return;
+        // 每次调用 setDivider 会将 mDividerHeight 重置为 -1
+        // 所以需要在 setDivider 之前保存高度值,在 setDivider 之后调用 setDividerHeight 重新设置.
+        int dividerHeight = view.getDividerHeight();
         view.setDivider(drawable);
+        view.setDividerHeight(dividerHeight);
     }
 
     @Override

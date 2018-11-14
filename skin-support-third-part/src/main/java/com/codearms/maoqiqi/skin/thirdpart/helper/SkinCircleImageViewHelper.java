@@ -35,6 +35,7 @@ public class SkinCircleImageViewHelper extends SkinHelper<CircleImageView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -51,7 +52,7 @@ public class SkinCircleImageViewHelper extends SkinHelper<CircleImageView> {
      * 应用背景颜色
      */
     private void applySupportCircleBackgroundColor() {
-        if (circleBackgroundColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(circleBackgroundColorResId)) return;
         String typeName = getTypeName(circleBackgroundColorResId);
         if (isColor(typeName)) {
             int color = getColor(circleBackgroundColorResId);
@@ -64,7 +65,7 @@ public class SkinCircleImageViewHelper extends SkinHelper<CircleImageView> {
      * 应用边框颜色
      */
     private void applySupportBorderColor() {
-        if (borderColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(borderColorResId)) return;
         String typeName = getTypeName(borderColorResId);
         if (isColor(typeName)) {
             int color = getColor(borderColorResId);

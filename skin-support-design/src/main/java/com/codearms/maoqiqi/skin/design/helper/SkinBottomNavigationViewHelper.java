@@ -2,6 +2,8 @@ package com.codearms.maoqiqi.skin.design.helper;
 
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.BottomNavigationView;
 import android.util.AttributeSet;
 
@@ -14,8 +16,6 @@ import com.codearms.maoqiqi.skin.helper.SkinHelper;
  * Date: 2018/10/09 10:57
  */
 public class SkinBottomNavigationViewHelper extends SkinHelper<BottomNavigationView> {
-
-    private boolean isApplyItemBackground = true;
 
     private int itemBackgroundResId = INVALID_RESOURCES;
     private int itemIconTintResId = INVALID_RESOURCES;
@@ -41,6 +41,7 @@ public class SkinBottomNavigationViewHelper extends SkinHelper<BottomNavigationV
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -49,30 +50,32 @@ public class SkinBottomNavigationViewHelper extends SkinHelper<BottomNavigationV
      * @param resId resource id
      */
     public void setSupportItemBackgroundResource(int resId) {
-        if (isApplyItemBackground) {
-            itemBackgroundResId = resId;
-            applySupportItemBackground();
-        } else {
-            isApplyItemBackground = true;
-        }
+        itemBackgroundResId = resId;
+        applySupportItemBackground();
     }
 
     /**
      * 应用每一项背景资源
      */
     private void applySupportItemBackground() {
-        if (itemBackgroundResId == INVALID_RESOURCES) return;
-        int id = getTargetResId(itemBackgroundResId);
-        if (id == 0) id = itemBackgroundResId;
-        isApplyItemBackground = false;
-        view.setItemBackgroundResource(id);
+        if (isNotNeedSkin(itemBackgroundResId)) return;
+        String typeName = getTypeName(itemBackgroundResId);
+        Drawable drawable = null;
+        if (isColor(typeName)) {
+            int color = getColor(itemBackgroundResId);
+            if (color == 0) return;
+            drawable = new ColorDrawable(color);
+        } else if (isDrawable(typeName)) {
+            drawable = getDrawable(itemBackgroundResId);
+        }
+        view.setItemBackground(drawable);
     }
 
     /**
      * 应用每一项着色
      */
     private void applySupportItemIconTint() {
-        if (itemIconTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(itemIconTintResId)) return;
         String typeName = getTypeName(itemIconTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(itemIconTintResId);
@@ -85,7 +88,7 @@ public class SkinBottomNavigationViewHelper extends SkinHelper<BottomNavigationV
      * 应用每一项文本颜色
      */
     private void applySupportItemTextColor() {
-        if (itemTextColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(itemTextColorResId)) return;
         String typeName = getTypeName(itemTextColorResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(itemTextColorResId);

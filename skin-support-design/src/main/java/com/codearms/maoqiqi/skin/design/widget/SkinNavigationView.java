@@ -58,6 +58,14 @@ public class SkinNavigationView extends NavigationView implements Skinable {
     }
 
     @Override
+    public void setItemTextAppearance(int resId) {
+        super.setItemTextAppearance(resId);
+        if (skinNavigationViewHelper != null) {
+            skinNavigationViewHelper.setSupportItemTextAppearance(resId);
+        }
+    }
+
+    @Override
     public void updateSkin() {
         if (skinViewHelper != null) {
             skinViewHelper.updateSkin();

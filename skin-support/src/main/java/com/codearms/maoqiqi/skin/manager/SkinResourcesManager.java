@@ -356,6 +356,16 @@ public class SkinResourcesManager {
     }
 
     /**
+     * 得到资源id的entryName
+     *
+     * @param resId resource id
+     * @return entryName
+     */
+    public String getEntryName(int resId) {
+        return resources.getResourceEntryName(resId);
+    }
+
+    /**
      * 得到资源id的typeName
      *
      * @param resId resource id
@@ -422,7 +432,11 @@ public class SkinResourcesManager {
         Drawable drawable = getDrawableFromCache(getKeyByResId(resId));
         if (drawable == null) {
             if (isUseDefaultResources) {
-                drawable = resources.getDrawable(resId);
+                try {
+                    drawable = resources.getDrawable(resId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
                 int targetResId = getTargetResId(resId);
                 if (targetResId == INVALID_RESOURCES) {

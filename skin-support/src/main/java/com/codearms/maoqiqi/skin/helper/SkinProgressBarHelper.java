@@ -52,13 +52,14 @@ public class SkinProgressBarHelper extends SkinHelper<ProgressBar> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
      * 应用Progress
      */
     private void applySupportProgressDrawable() {
-        if (progressDrawableResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(progressDrawableResId)) return;
         String typeName = getTypeName(progressDrawableResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -76,7 +77,7 @@ public class SkinProgressBarHelper extends SkinHelper<ProgressBar> {
      * 应用Indeterminate
      */
     private void applySupportIndeterminateDrawable() {
-        if (indeterminateDrawableResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(indeterminateDrawableResId)) return;
         String typeName = getTypeName(indeterminateDrawableResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -87,6 +88,7 @@ public class SkinProgressBarHelper extends SkinHelper<ProgressBar> {
             drawable = getDrawable(indeterminateDrawableResId);
         }
         if (drawable == null) return;
+        drawable.setBounds(view.getIndeterminateDrawable().getBounds());
         view.setIndeterminateDrawable(drawable);
     }
 
@@ -94,7 +96,7 @@ public class SkinProgressBarHelper extends SkinHelper<ProgressBar> {
      * 应用Progress着色
      */
     private void applySupportProgressTint() {
-        if (progressTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(progressTintResId)) return;
         String typeName = getTypeName(progressTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(progressTintResId);
@@ -109,7 +111,7 @@ public class SkinProgressBarHelper extends SkinHelper<ProgressBar> {
      * 应用SecondaryProgress着色
      */
     private void applySupportSecondaryProgressTint() {
-        if (secondaryProgressTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(secondaryProgressTintResId)) return;
         String typeName = getTypeName(secondaryProgressTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(secondaryProgressTintResId);
@@ -124,7 +126,7 @@ public class SkinProgressBarHelper extends SkinHelper<ProgressBar> {
      * 应用ProgressBackground着色
      */
     private void applySupportProgressBackgroundTint() {
-        if (progressBackgroundTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(progressBackgroundTintResId)) return;
         String typeName = getTypeName(progressBackgroundTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(progressBackgroundTintResId);
@@ -139,7 +141,7 @@ public class SkinProgressBarHelper extends SkinHelper<ProgressBar> {
      * 应用Indeterminate着色
      */
     private void applySupportIndeterminateTint() {
-        if (indeterminateTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(indeterminateTintResId)) return;
         String typeName = getTypeName(indeterminateTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(indeterminateTintResId);

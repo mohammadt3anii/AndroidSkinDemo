@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ import java.lang.reflect.Method;
 public class SkinDatePickerHelper extends SkinHelper<DatePicker> {
 
     private int headerBackgroundResId = INVALID_RESOURCES;
-    private int headerTextColorResId = INVALID_RESOURCES;
+    private int calendarTextColorResId = INVALID_RESOURCES;
 
     public SkinDatePickerHelper(DatePicker view) {
         super(view);
@@ -35,15 +36,16 @@ public class SkinDatePickerHelper extends SkinHelper<DatePicker> {
     public void loadFromAttribute(AttributeSet attrs, int defStyleAttr) {
         TypedArray a = view.getContext().obtainStyledAttributes(attrs, R.styleable.SkinDatePickerHelper, defStyleAttr, 0);
         try {
-            if (a.hasValue(R.styleable.SkinDatePickerHelper_headerBackground)) {
-                headerBackgroundResId = a.getResourceId(R.styleable.SkinDatePickerHelper_headerBackground, INVALID_RESOURCES);
+            if (a.hasValue(R.styleable.SkinDatePickerHelper_android_headerBackground)) {
+                headerBackgroundResId = a.getResourceId(R.styleable.SkinDatePickerHelper_android_headerBackground, INVALID_RESOURCES);
             }
-            if (a.hasValue(R.styleable.SkinDatePickerHelper_headerTextColor)) {
-                headerTextColorResId = a.getResourceId(R.styleable.SkinDatePickerHelper_headerTextColor, INVALID_RESOURCES);
+            if (a.hasValue(R.styleable.SkinDatePickerHelper_android_calendarTextColor)) {
+                calendarTextColorResId = a.getResourceId(R.styleable.SkinDatePickerHelper_android_calendarTextColor, INVALID_RESOURCES);
             }
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -101,7 +103,7 @@ public class SkinDatePickerHelper extends SkinHelper<DatePicker> {
      * 应用头部背景
      */
     private void applySupportHeaderBackground() {
-        if (headerBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(headerBackgroundResId)) return;
         String typeName = getTypeName(headerBackgroundResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -112,6 +114,7 @@ public class SkinDatePickerHelper extends SkinHelper<DatePicker> {
             drawable = getDrawable(headerBackgroundResId);
         }
         if (drawable == null) return;
+        Log.e("info",view.getClass().getName()+"headerBackgroundResId:"+headerBackgroundResId);
         setHeaderBackground(view, drawable);
     }
 
@@ -147,22 +150,8 @@ public class SkinDatePickerHelper extends SkinHelper<DatePicker> {
         }
     }
 
-    /**
-     * 应用头部文本颜色
-     */
-    private void applySupportHeaderTextColor() {
-        if (headerTextColorResId == INVALID_RESOURCES) return;
-        String typeName = getTypeName(headerTextColorResId);
-        if (isColor(typeName) || isDrawable(typeName)) {
-            ColorStateList colorStateList = getColorStateList(headerTextColorResId);
-            if (colorStateList == null) return;
-            setHeaderTextColor(view, colorStateList);
-        }
-    }
-
     @Override
     public void updateSkin() {
         applySupportHeaderBackground();
-        applySupportHeaderTextColor();
     }
 }

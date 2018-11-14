@@ -1,32 +1,33 @@
-package com.codearms.maoqiqi.skin.helper;
+package com.codearms.maoqiqi.skin.v7.helper;
 
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
 
-import com.codearms.maoqiqi.skin.R;
+import com.codearms.maoqiqi.skin.appcompat.R;
+import com.codearms.maoqiqi.skin.helper.SkinHelper;
 
 /**
- * LinearLayout更新皮肤帮助类,LinearLayout及子类都可以使用该帮助类
+ * LinearLayoutCompat更新皮肤帮助类,LinearLayoutCompat及子类都可以使用该帮助类
  * Author: fengqi.mao.march@gmail.com
- * Date: 2018/9/14 9:50
+ * Date: 2018/10/14 21:58
  */
-public class SkinLinearLayoutHelper extends SkinHelper<LinearLayout> {
+public class SkinLinearLayoutCompatHelper extends SkinHelper<LinearLayoutCompat> {
 
     private int dividerResId = INVALID_RESOURCES;
 
-    public SkinLinearLayoutHelper(LinearLayout view) {
+    public SkinLinearLayoutCompatHelper(LinearLayoutCompat view) {
         super(view);
     }
 
     @Override
     public void loadFromAttribute(AttributeSet attrs, int defStyleAttr) {
-        TypedArray a = view.getContext().obtainStyledAttributes(attrs, R.styleable.SkinLinearLayoutHelper, defStyleAttr, 0);
+        TypedArray a = view.getContext().obtainStyledAttributes(attrs, R.styleable.SkinLinearLayoutCompatHelper, defStyleAttr, 0);
         try {
-            if (a.hasValue(R.styleable.SkinLinearLayoutHelper_android_divider)) {
-                dividerResId = a.getResourceId(R.styleable.SkinLinearLayoutHelper_android_divider, INVALID_RESOURCES);
+            if (a.hasValue(R.styleable.SkinLinearLayoutCompatHelper_divider)) {
+                dividerResId = a.getResourceId(R.styleable.SkinLinearLayoutCompatHelper_divider, INVALID_RESOURCES);
             }
         } finally {
             a.recycle();

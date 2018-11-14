@@ -1,13 +1,19 @@
 package com.codearms.maoqiqi.skin.design.helper;
 
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 import com.codearms.maoqiqi.skin.design.R;
 import com.codearms.maoqiqi.skin.helper.SkinHelper;
+
+import java.lang.reflect.Field;
 
 /**
  * TextInputLayout更新皮肤帮助类,TextInputLayout及子类都可以使用该帮助类
@@ -18,8 +24,6 @@ public class SkinTextInputLayoutHelper extends SkinHelper<TextInputLayout> {
 
     private boolean isApplyHintTextAppearance = true;
     private boolean isApplyErrorTextAppearance = true;
-    private boolean isApplyCounterTextAppearance = true;
-    private boolean isApplyCounterOverflowTextAppearance = true;
 
     private int textColorHintResId = INVALID_RESOURCES;
     private int hintTextAppearanceResId = INVALID_RESOURCES;
@@ -61,6 +65,7 @@ public class SkinTextInputLayoutHelper extends SkinHelper<TextInputLayout> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -102,10 +107,66 @@ public class SkinTextInputLayoutHelper extends SkinHelper<TextInputLayout> {
     }
 
     /**
+     * 设置提示颜色
+     *
+     * @param textInputLayout 视图
+     * @param colorStateList  颜色
+     */
+    private void setTextColorHint(TextInputLayout textInputLayout, ColorStateList colorStateList) {
+        try {
+            String name = "mDefaultTextColor";
+            Field fDefaultTextColor = TextInputLayout.class.getDeclaredField(name);
+            fDefaultTextColor.setAccessible(true);
+            fDefaultTextColor.set(textInputLayout, colorStateList);
+
+            name = "mFocusedTextColor";
+            Field fFocusedTextColor = TextInputLayout.class.getDeclaredField(name);
+            fFocusedTextColor.setAccessible(true);
+            fFocusedTextColor.set(textInputLayout, colorStateList);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 应用提示颜色
+     */
+    private void applySupportTextColorHint() {
+        if (isNotNeedSkin(textColorHintResId)) return;
+        String typeName = getTypeName(textColorHintResId);
+        if (isColor(typeName) || isDrawable(typeName)) {
+            ColorStateList colorStateList = getColorStateList(textColorHintResId);
+            if (colorStateList == null) return;
+            setTextColorHint(view, colorStateList);
+        }
+    }
+
+    // TODO: 18/10/28 对比一下
+    private void applySupportTextColorHint2() {
+        if (textColorHintResId == INVALID_RESOURCES) return;
+        String typeName = getTypeName(textColorHintResId);
+        if (isColor(typeName)) {
+            int color = getColor(textColorHintResId);
+            if (color == 0) return;
+            if (view.getEditText() != null)
+                view.getEditText().setHintTextColor(color);
+        } else if (isDrawable(typeName)) {
+            ColorStateList colorStateList = getColorStateList(textColorHintResId);
+            if (colorStateList == null) return;
+            if (view.getEditText() != null)
+                view.getEditText().setHintTextColor(colorStateList);
+        }
+        if (view.getEditText() != null)
+            view.getEditText().setTextColor(Color.BLACK);
+    }
+
+    /**
      * 应用字体样式
      */
     private void applySupportHintTextAppearance() {
-        if (hintTextAppearanceResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(hintTextAppearanceResId)) return;
         int id = getTargetResId(hintTextAppearanceResId);
         if (id == 0) id = hintTextAppearanceResId;
         isApplyHintTextAppearance = false;
@@ -116,7 +177,8 @@ public class SkinTextInputLayoutHelper extends SkinHelper<TextInputLayout> {
      * 应用字体样式
      */
     private void applySupportErrorTextAppearance() {
-        if (errorTextAppearanceResId == INVALID_RESOURCES) return;
+        if (!view.isErrorEnabled()) return;
+        if (isNotNeedSkin(errorTextAppearanceResId)) return;
         int id = getTargetResId(errorTextAppearanceResId);
         if (id == 0) id = errorTextAppearanceResId;
         isApplyErrorTextAppearance = false;
@@ -124,10 +186,105 @@ public class SkinTextInputLayoutHelper extends SkinHelper<TextInputLayout> {
     }
 
     /**
+     * 设置Counter字体样式
+     *
+     * @param textInputLayout 视图
+     * @param resId           资源
+     */
+    private void setCounterTextAppearance(TextInputLayout textInputLayout, int resId) {
+        try {
+            String name = "mCounterTextAppearance";
+            Field fCounterTextAppearance = TextInputLayout.class.getDeclaredField(name);
+            fCounterTextAppearance.setAccessible(true);
+            fCounterTextAppearance.set(textInputLayout, resId);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 应用Counter字体样式
+     */
+    private void applySupportCounterTextAppearance() {
+        if (isNotNeedSkin(counterTextAppearanceResId)) return;
+        int id = getTargetResId(counterTextAppearanceResId);
+        if (id == 0) id = counterTextAppearanceResId;
+        setCounterTextAppearance(view, id);
+    }
+
+    // TODO: 18/10/28 对比一下
+    private TextView getCounterView() {
+        try {
+            Field counterView = TextInputLayout.class.getDeclaredField("mCounterView");
+            counterView.setAccessible(true);
+            return (TextView) counterView.get(view);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void applySupportCounterTextAppearance2() {
+        if (counterTextAppearanceResId == INVALID_RESOURCES) return;
+        TextView counterView = getCounterView();
+        if (counterView == null) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            counterView.setTextAppearance(getTargetResId(counterTextAppearanceResId));
+        }
+    }
+
+    /**
+     * 设置CounterOverflow字体样式
+     *
+     * @param textInputLayout 视图
+     * @param resId           资源
+     */
+    private void setCounterOverflowTextAppearance(TextInputLayout textInputLayout, int resId) {
+        try {
+            String name = "mCounterOverflowTextAppearance";
+            Field fCounterOverflowTextAppearance = TextInputLayout.class.getDeclaredField(name);
+            fCounterOverflowTextAppearance.setAccessible(true);
+            fCounterOverflowTextAppearance.set(textInputLayout, resId);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 应用CounterOverflow字体样式
+     */
+    private void applySupportCounterOverflowTextAppearance() {
+        if (isNotNeedSkin(counterOverflowTextAppearanceResId)) return;
+        int id = getTargetResId(counterOverflowTextAppearanceResId);
+        if (id == 0) id = counterOverflowTextAppearanceResId;
+        setCounterOverflowTextAppearance(view, id);
+    }
+
+    /**
+     * 如果Counter显示,更新Counter
+     */
+    private void applySupportCounterTextAppearanceIfNeed() {
+        if (view.isCounterEnabled()) {
+            applySupportCounterTextAppearance();
+            applySupportCounterOverflowTextAppearance();
+            // 用于更新Counter
+            view.setCounterEnabled(false);
+            view.setCounterEnabled(true);
+        }
+    }
+
+    /**
      * 应用密码开关资源
      */
     private void applySupportPasswordVisibilityToggleDrawable() {
-        if (passwordToggleDrawableResId == INVALID_RESOURCES) return;
+        if (!view.isPasswordVisibilityToggleEnabled()) return;
+        if (isNotNeedSkin(passwordToggleDrawableResId)) return;
         String typeName = getTypeName(passwordToggleDrawableResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -141,10 +298,27 @@ public class SkinTextInputLayoutHelper extends SkinHelper<TextInputLayout> {
         view.setPasswordVisibilityToggleDrawable(drawable);
     }
 
+    /**
+     * 应用密码开关着色
+     */
+    private void applySupportPasswordVisibilityToggleTintList() {
+        if (!view.isPasswordVisibilityToggleEnabled()) return;
+        if (isNotNeedSkin(passwordToggleTintResId)) return;
+        String typeName = getTypeName(passwordToggleTintResId);
+        if (isColor(typeName)) {
+            ColorStateList colorStateList = getColorStateList(passwordToggleTintResId);
+            if (colorStateList == null) return;
+            view.setPasswordVisibilityToggleTintList(colorStateList);
+        }
+    }
+
     @Override
     public void updateSkin() {
+        applySupportTextColorHint();
         applySupportHintTextAppearance();
         applySupportErrorTextAppearance();
+        applySupportCounterTextAppearanceIfNeed();
         applySupportPasswordVisibilityToggleDrawable();
+        applySupportPasswordVisibilityToggleTintList();
     }
 }

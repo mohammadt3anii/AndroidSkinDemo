@@ -97,6 +97,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -175,7 +176,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      * 应用文本颜色
      */
     private void applySupportTextColor() {
-        if (textColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(textColorResId)) return;
         String typeName = getTypeName(textColorResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(textColorResId);
@@ -188,7 +189,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      * 应用提示文本颜色
      */
     private void applySupportTextColorHint() {
-        if (textColorHintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(textColorHintResId)) return;
         String typeName = getTypeName(textColorHintResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(textColorHintResId);
@@ -201,7 +202,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      * 应用链接文本颜色
      */
     private void applySupportTextColorLink() {
-        if (textColorLinkResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(textColorLinkResId)) return;
         String typeName = getTypeName(textColorLinkResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(textColorLinkResId);
@@ -214,7 +215,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      * 设置选中文本颜色
      */
     private void applySupportTextColorHighlight() {
-        if (textColorHighlightResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(textColorHighlightResId)) return;
         String typeName = getTypeName(textColorHighlightResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(textColorHighlightResId);
@@ -251,7 +252,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      */
     private void applySupportTextCursorDrawable() {
         if (!(view instanceof EditText)) return;
-        if (textCursorDrawableResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(textCursorDrawableResId)) return;
         String typeName = getTypeName(textCursorDrawableResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -262,6 +263,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
             drawable = getDrawable(textCursorDrawableResId);
         }
         if (drawable == null) return;
+        // TODO: 18/10/28 光标焦点问题
         setTextCursorDrawable((EditText) view, drawable);
     }
 
@@ -295,7 +297,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      */
     private void applySupportTextSelectHandle() {
         if (!(view instanceof EditText)) return;
-        if (textSelectHandleResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(textSelectHandleResId)) return;
         String typeName = getTypeName(textSelectHandleResId);
         if (isDrawable(typeName)) {
             Drawable drawable = getDrawable(textSelectHandleResId);
@@ -309,7 +311,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      */
     private void applySupportTextSelectHandleLeft() {
         if (!(view instanceof EditText)) return;
-        if (textSelectHandleLeftResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(textSelectHandleLeftResId)) return;
         String typeName = getTypeName(textSelectHandleLeftResId);
         if (isDrawable(typeName)) {
             Drawable drawable = getDrawable(textSelectHandleLeftResId);
@@ -323,7 +325,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      */
     private void applySupportTextSelectHandleRight() {
         if (!(view instanceof EditText)) return;
-        if (textSelectHandleRightResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(textSelectHandleRightResId)) return;
         String typeName = getTypeName(textSelectHandleRightResId);
         if (isDrawable(typeName)) {
             Drawable drawable = getDrawable(textSelectHandleRightResId);
@@ -336,24 +338,24 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      * 应用Drawables
      */
     private void applySupportCompoundDrawables() {
-        if (drawableLeftResId == INVALID_RESOURCES && drawableTopResId == INVALID_RESOURCES &&
-                drawableRightResId == INVALID_RESOURCES && drawableBottomResId == INVALID_RESOURCES)
+        if (isNotNeedSkin(drawableLeftResId) && isNotNeedSkin(drawableTopResId) &&
+                isNotNeedSkin(drawableRightResId) && isNotNeedSkin(drawableBottomResId))
             return;
 
         Drawable drawableLeft = null, drawableTop = null, drawableRight = null, drawableBottom = null;
-        if (drawableLeftResId != INVALID_RESOURCES) {
+        if (!isNotNeedSkin(drawableLeftResId)) {
             String typeName = getTypeName(drawableLeftResId);
             if (isDrawable(typeName)) drawableLeft = getDrawable(drawableLeftResId);
         }
-        if (drawableTopResId != INVALID_RESOURCES) {
+        if (!isNotNeedSkin(drawableTopResId)) {
             String typeName = getTypeName(drawableTopResId);
             if (isDrawable(typeName)) drawableTop = getDrawable(drawableTopResId);
         }
-        if (drawableRightResId != INVALID_RESOURCES) {
+        if (!isNotNeedSkin(drawableRightResId)) {
             String typeName = getTypeName(drawableRightResId);
             if (isDrawable(typeName)) drawableRight = getDrawable(drawableRightResId);
         }
-        if (drawableBottomResId != INVALID_RESOURCES) {
+        if (!isNotNeedSkin(drawableBottomResId)) {
             String typeName = getTypeName(drawableBottomResId);
             if (isDrawable(typeName)) drawableBottom = getDrawable(drawableBottomResId);
         }
@@ -364,23 +366,23 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      * 应用Drawables
      */
     private void applySupportCompoundDrawablesRelativeIfNeeded() {
-        if (drawableStartResId == INVALID_RESOURCES && drawableEndResId == INVALID_RESOURCES)
+        if (isNotNeedSkin(drawableStartResId) && isNotNeedSkin(drawableEndResId))
             return;
 
         Drawable drawableStart = null, drawableTop = null, drawableEnd = null, drawableBottom = null;
-        if (drawableStartResId != INVALID_RESOURCES) {
+        if (!isNotNeedSkin(drawableStartResId)) {
             String typeName = getTypeName(drawableStartResId);
             if (isDrawable(typeName)) drawableStart = getDrawable(drawableStartResId);
         }
-        if (drawableEndResId != INVALID_RESOURCES) {
+        if (!isNotNeedSkin(drawableEndResId)) {
             String typeName = getTypeName(drawableEndResId);
             if (isDrawable(typeName)) drawableEnd = getDrawable(drawableEndResId);
         }
-        if (drawableTopResId != INVALID_RESOURCES) {
+        if (!isNotNeedSkin(drawableTopResId)) {
             String typeName = getTypeName(drawableTopResId);
             if (isDrawable(typeName)) drawableTop = getDrawable(drawableTopResId);
         }
-        if (drawableBottomResId != INVALID_RESOURCES) {
+        if (!isNotNeedSkin(drawableBottomResId)) {
             String typeName = getTypeName(drawableBottomResId);
             if (isDrawable(typeName)) drawableBottom = getDrawable(drawableBottomResId);
         }
@@ -391,13 +393,24 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
      * 应用Drawables着色
      */
     private void applySupportDrawableTint() {
-        if (drawableTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(drawableTintResId)) return;
         String typeName = getTypeName(drawableTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(drawableTintResId);
             if (colorStateList == null) return;
+            // 与Android效果保持一致(在 6.0 加入; android:drawableStart 和 android:drawableEnd 在 7.0 才有效.)
             if (IS_MARSHMALLOW) {
-                view.setCompoundDrawableTintList(colorStateList);
+                Drawable[] drawables = view.getCompoundDrawables();
+                Drawable[] drawablesRelative = view.getCompoundDrawablesRelative();
+                for (int i = 0; i < drawables.length; i++) {
+                    if (i == 1 || i == 3 || drawables[i] != drawablesRelative[i]) {
+                        if (drawables[i] != null) drawables[i].setTintList(colorStateList);
+                    } else {
+                        if (IS_NOUGAT) {
+                            if (drawables[i] != null) drawables[i].setTintList(colorStateList);
+                        }
+                    }
+                }
             }
         }
     }
@@ -409,6 +422,7 @@ public class SkinTextViewHelper extends SkinHelper<TextView> {
         applySupportTextColorLink();
         applySupportTextColorHighlight();
         applySupportTextCursorDrawable();
+        // TODO: 18/10/17 android 5.0 之后不能及时刷新
         applySupportTextSelectHandle();
         applySupportTextSelectHandleLeft();
         applySupportTextSelectHandleRight();

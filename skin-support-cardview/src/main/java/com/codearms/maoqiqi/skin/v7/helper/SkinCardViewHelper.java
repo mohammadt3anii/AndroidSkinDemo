@@ -31,10 +31,11 @@ public class SkinCardViewHelper extends SkinHelper<CardView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     private void applySupportBackground() {
-        if (cardBackgroundColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(cardBackgroundColorResId)) return;
         String typeName = getTypeName(cardBackgroundColorResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(cardBackgroundColorResId);

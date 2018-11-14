@@ -1,5 +1,6 @@
 package com.codearms.maoqiqi.skin.design.helper;
 
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -15,11 +16,10 @@ import com.codearms.maoqiqi.skin.helper.SkinHelper;
  */
 public class SkinCollapsingToolbarLayoutHelper extends SkinHelper<CollapsingToolbarLayout> {
 
-    private boolean isApplyExpandedTitleTextAppearance = true;
-    private boolean isApplyCollapsedTitleTextAppearance = true;
-
     private int expandedTitleTextAppearanceResId = INVALID_RESOURCES;
     private int collapsedTitleTextAppearanceResId = INVALID_RESOURCES;
+    private int expandedTitleTextColorResId = INVALID_RESOURCES;
+    private int collapsedTitleTextColorResId = INVALID_RESOURCES;
     private int contentScrimResId = INVALID_RESOURCES;
     private int statusBarScrimResId = INVALID_RESOURCES;
 
@@ -33,15 +33,48 @@ public class SkinCollapsingToolbarLayoutHelper extends SkinHelper<CollapsingTool
         try {
             if (a.hasValue(R.styleable.SkinCollapsingToolbarLayoutHelper_expandedTitleTextAppearance)) {
                 expandedTitleTextAppearanceResId = a.getResourceId(R.styleable.SkinCollapsingToolbarLayoutHelper_expandedTitleTextAppearance, INVALID_RESOURCES);
+                obtainExpandedTitleTextAppearance();
             }
             if (a.hasValue(R.styleable.SkinCollapsingToolbarLayoutHelper_collapsedTitleTextAppearance)) {
                 collapsedTitleTextAppearanceResId = a.getResourceId(R.styleable.SkinCollapsingToolbarLayoutHelper_collapsedTitleTextAppearance, INVALID_RESOURCES);
+                obtainCollapsedTitleTextAppearance();
             }
             if (a.hasValue(R.styleable.SkinCollapsingToolbarLayoutHelper_contentScrim)) {
                 contentScrimResId = a.getResourceId(R.styleable.SkinCollapsingToolbarLayoutHelper_contentScrim, INVALID_RESOURCES);
             }
             if (a.hasValue(R.styleable.SkinCollapsingToolbarLayoutHelper_statusBarScrim)) {
                 statusBarScrimResId = a.getResourceId(R.styleable.SkinCollapsingToolbarLayoutHelper_statusBarScrim, INVALID_RESOURCES);
+            }
+        } finally {
+            a.recycle();
+        }
+        updateSkin();
+    }
+
+    /**
+     * 解析expandedTitleTextAppearance,获取属性值
+     */
+    private void obtainExpandedTitleTextAppearance() {
+        if (expandedTitleTextAppearanceResId == INVALID_RESOURCES) return;
+        TypedArray a = view.getContext().obtainStyledAttributes(expandedTitleTextAppearanceResId, R.styleable.SkinTextAppearance);
+        try {
+            if (a.hasValue(R.styleable.SkinTextAppearance_android_textColor)) {
+                expandedTitleTextColorResId = a.getResourceId(R.styleable.SkinTextAppearance_android_textColor, INVALID_RESOURCES);
+            }
+        } finally {
+            a.recycle();
+        }
+    }
+
+    /**
+     * 解析collapsedTitleTextAppearanceResId,获取属性值
+     */
+    private void obtainCollapsedTitleTextAppearance() {
+        if (collapsedTitleTextAppearanceResId == INVALID_RESOURCES) return;
+        TypedArray a = view.getContext().obtainStyledAttributes(collapsedTitleTextAppearanceResId, R.styleable.SkinTextAppearance);
+        try {
+            if (a.hasValue(R.styleable.SkinTextAppearance_android_textColor)) {
+                collapsedTitleTextColorResId = a.getResourceId(R.styleable.SkinTextAppearance_android_textColor, INVALID_RESOURCES);
             }
         } finally {
             a.recycle();
@@ -54,12 +87,9 @@ public class SkinCollapsingToolbarLayoutHelper extends SkinHelper<CollapsingTool
      * @param resId resource id
      */
     public void setSupportExpandedTitleTextAppearance(int resId) {
-        if (isApplyExpandedTitleTextAppearance) {
-            expandedTitleTextAppearanceResId = resId;
-            applySupportExpandedTitleTextAppearance();
-        } else {
-            isApplyExpandedTitleTextAppearance = true;
-        }
+        expandedTitleTextAppearanceResId = resId;
+        obtainExpandedTitleTextAppearance();
+        applySupportExpandedTitleTextColor();
     }
 
     /**
@@ -68,12 +98,9 @@ public class SkinCollapsingToolbarLayoutHelper extends SkinHelper<CollapsingTool
      * @param resId resource id
      */
     public void setSupportCollapsedTitleTextAppearance(int resId) {
-        if (isApplyCollapsedTitleTextAppearance) {
-            collapsedTitleTextAppearanceResId = resId;
-            applySupportCollapsedTitleTextAppearance();
-        } else {
-            isApplyCollapsedTitleTextAppearance = true;
-        }
+        collapsedTitleTextAppearanceResId = resId;
+        obtainCollapsedTitleTextAppearance();
+        applySupportCollapsedTitleTextColor();
     }
 
     /**
@@ -97,32 +124,44 @@ public class SkinCollapsingToolbarLayoutHelper extends SkinHelper<CollapsingTool
     }
 
     /**
-     * 应用展开文本样式
+     * 应用展开文本颜色
      */
-    private void applySupportExpandedTitleTextAppearance() {
-        if (expandedTitleTextAppearanceResId == INVALID_RESOURCES) return;
-        int id = getTargetResId(expandedTitleTextAppearanceResId);
-        if (id == 0) id = expandedTitleTextAppearanceResId;
-        isApplyExpandedTitleTextAppearance = false;
-        view.setExpandedTitleTextAppearance(id);
+    private void applySupportExpandedTitleTextColor() {
+        if (isNotNeedSkin(expandedTitleTextColorResId)) return;
+        String typeName = getTypeName(expandedTitleTextColorResId);
+        if (isColor(typeName)) {
+            int color = getColor(expandedTitleTextColorResId);
+            if (color == 0) return;
+            view.setExpandedTitleColor(color);
+        } else if (isDrawable(typeName)) {
+            ColorStateList colorStateList = getColorStateList(expandedTitleTextColorResId);
+            if (colorStateList == null) return;
+            view.setExpandedTitleTextColor(colorStateList);
+        }
     }
 
     /**
      * 应用折叠文本样式
      */
-    private void applySupportCollapsedTitleTextAppearance() {
-        if (collapsedTitleTextAppearanceResId == INVALID_RESOURCES) return;
-        int id = getTargetResId(collapsedTitleTextAppearanceResId);
-        if (id == 0) id = collapsedTitleTextAppearanceResId;
-        isApplyCollapsedTitleTextAppearance = false;
-        view.setCollapsedTitleTextAppearance(id);
+    private void applySupportCollapsedTitleTextColor() {
+        if (isNotNeedSkin(collapsedTitleTextColorResId)) return;
+        String typeName = getTypeName(collapsedTitleTextColorResId);
+        if (isColor(typeName)) {
+            int color = getColor(collapsedTitleTextColorResId);
+            if (color == 0) return;
+            view.setCollapsedTitleTextColor(color);
+        } else if (isDrawable(typeName)) {
+            ColorStateList colorStateList = getColorStateList(collapsedTitleTextColorResId);
+            if (colorStateList == null) return;
+            view.setCollapsedTitleTextColor(colorStateList);
+        }
     }
 
     /**
      * 设置内容背景资源
      */
     private void applySupportContentScrim() {
-        if (contentScrimResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(contentScrimResId)) return;
         String typeName = getTypeName(contentScrimResId);
         if (isColor(typeName)) {
             int color = getColor(contentScrimResId);
@@ -139,7 +178,7 @@ public class SkinCollapsingToolbarLayoutHelper extends SkinHelper<CollapsingTool
      * 设置StatusBar背景资源
      */
     private void applySupportStatusBarScrim() {
-        if (statusBarScrimResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(statusBarScrimResId)) return;
         String typeName = getTypeName(statusBarScrimResId);
         if (isColor(typeName)) {
             int color = getColor(statusBarScrimResId);
@@ -154,8 +193,8 @@ public class SkinCollapsingToolbarLayoutHelper extends SkinHelper<CollapsingTool
 
     @Override
     public void updateSkin() {
-        applySupportExpandedTitleTextAppearance();
-        applySupportCollapsedTitleTextAppearance();
+        applySupportExpandedTitleTextColor();
+        applySupportCollapsedTitleTextColor();
         applySupportContentScrim();
         applySupportStatusBarScrim();
     }

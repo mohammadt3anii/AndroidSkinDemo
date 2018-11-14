@@ -43,6 +43,7 @@ public class SkinTimePickerHelper extends SkinHelper<TimePicker> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -102,7 +103,7 @@ public class SkinTimePickerHelper extends SkinHelper<TimePicker> {
      * 应用头部背景
      */
     private void applySupportHeaderBackground() {
-        if (headerBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(headerBackgroundResId)) return;
         String typeName = getTypeName(headerBackgroundResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -167,7 +168,7 @@ public class SkinTimePickerHelper extends SkinHelper<TimePicker> {
      * 应用头部文本颜色
      */
     private void applySupportHeaderTextColor() {
-        if (headerTextColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(headerTextColorResId)) return;
         String typeName = getTypeName(headerTextColorResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(headerTextColorResId);

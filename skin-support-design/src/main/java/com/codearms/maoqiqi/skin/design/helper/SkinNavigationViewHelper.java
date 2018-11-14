@@ -46,13 +46,14 @@ public class SkinNavigationViewHelper extends SkinHelper<NavigationView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
      * 解析itemTextAppearance,获取属性值
      */
     private void obtainItemTextAppearance() {
-        if (itemTextAppearanceResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(itemTextAppearanceResId)) return;
         TypedArray a = view.getContext().obtainStyledAttributes(itemTextAppearanceResId, R.styleable.SkinTextAppearance);
         try {
             if (a.hasValue(R.styleable.SkinTextAppearance_android_textColor)) {
@@ -73,11 +74,15 @@ public class SkinNavigationViewHelper extends SkinHelper<NavigationView> {
         applySupportItemBackground();
     }
 
+    public void setSupportItemTextAppearance(int resId) {
+
+    }
+
     /**
      * 应用每一项背景资源
      */
     private void applySupportItemBackground() {
-        if (itemBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(itemBackgroundResId)) return;
         String typeName = getTypeName(itemBackgroundResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -95,7 +100,7 @@ public class SkinNavigationViewHelper extends SkinHelper<NavigationView> {
      * 应用每一项着色
      */
     private void applySupportItemIconTint() {
-        if (itemIconTintResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(itemIconTintResId)) return;
         String typeName = getTypeName(itemIconTintResId);
         if (isColor(typeName)) {
             ColorStateList colorStateList = getColorStateList(itemIconTintResId);
@@ -108,7 +113,7 @@ public class SkinNavigationViewHelper extends SkinHelper<NavigationView> {
      * 应用每一项文本颜色
      */
     private void applySupportItemTextColor() {
-        if (itemTextColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(itemTextColorResId)) return;
         String typeName = getTypeName(itemTextColorResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(itemTextColorResId);

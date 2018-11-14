@@ -4,7 +4,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +18,6 @@ import java.lang.reflect.Field;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2018/9/17 11:11
  */
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SkinSearchViewHelper extends SkinHelper<SearchView> {
 
     private int queryBackgroundResId = INVALID_RESOURCES;
@@ -66,6 +64,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -79,8 +78,12 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
             String name = "mSearchPlate";
             Field fSearchPlate = SearchView.class.getDeclaredField(name);
             View view = (View) fSearchPlate.get(searchView);
-            view.setBackground(drawable);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                view.setBackground(drawable);
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -89,7 +92,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用Query背景
      */
     private void applySupportQueryBackground() {
-        if (queryBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(queryBackgroundResId)) return;
         String typeName = getTypeName(queryBackgroundResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -114,8 +117,12 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
             String name = "mSubmitArea";
             Field fSubmitArea = SearchView.class.getDeclaredField(name);
             View view = (View) fSubmitArea.get(searchView);
-            view.setBackground(drawable);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                view.setBackground(drawable);
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -124,7 +131,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用Submit背景
      */
     private void applySupportSubmitBackground() {
-        if (submitBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(submitBackgroundResId)) return;
         String typeName = getTypeName(submitBackgroundResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -150,7 +157,9 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
             Field fSearchButton = SearchView.class.getDeclaredField(name);
             ImageView searchButton = (ImageView) fSearchButton.get(searchView);
             searchButton.setImageDrawable(drawable);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -159,7 +168,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用搜索Icon
      */
     private void applySupportSearchIcon() {
-        if (searchIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(searchIconResId)) return;
         String typeName = getTypeName(searchIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -184,7 +193,9 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
             String name = "mSearchHintIcon";
             Field fSearchHintIcon = SearchView.class.getDeclaredField(name);
             fSearchHintIcon.set(searchView, drawable);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -193,7 +204,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用搜索提示Icon
      */
     private void applySupportSearchHintIcon() {
-        if (searchHintIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(searchHintIconResId)) return;
         String typeName = getTypeName(searchHintIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -219,7 +230,9 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
             Field fCloseButton = SearchView.class.getDeclaredField(name);
             ImageView closeButton = (ImageView) fCloseButton.get(searchView);
             closeButton.setImageDrawable(drawable);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -228,7 +241,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用CloseIcon
      */
     private void applySupportCloseIcon() {
-        if (closeIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(closeIconResId)) return;
         String typeName = getTypeName(closeIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -254,7 +267,9 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
             Field fGoButton = SearchView.class.getDeclaredField(name);
             ImageView goButton = (ImageView) fGoButton.get(searchView);
             goButton.setImageDrawable(drawable);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -263,7 +278,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用GoIcon
      */
     private void applySupportGoIcon() {
-        if (goIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(goIconResId)) return;
         String typeName = getTypeName(goIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -289,7 +304,9 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
             Field fVoiceButton = SearchView.class.getDeclaredField(name);
             ImageView voiceButton = (ImageView) fVoiceButton.get(searchView);
             voiceButton.setImageDrawable(drawable);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -298,7 +315,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用VoiceIcon
      */
     private void applySupportVoiceIcon() {
-        if (voiceIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(voiceIconResId)) return;
         String typeName = getTypeName(voiceIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -324,7 +341,9 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
             String name = "mSuggestionCommitIconResId";
             Field fSuggestionCommitIconResId = SearchView.class.getDeclaredField(name);
             fSuggestionCommitIconResId.set(searchView, resId);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -333,7 +352,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用CommitIcon
      */
     private void applySupportCommitIcon() {
-        if (commitIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(commitIconResId)) return;
         int id = getTargetResId(commitIconResId);
         if (id == 0) id = commitIconResId;
         setCommitIcon(view, id);

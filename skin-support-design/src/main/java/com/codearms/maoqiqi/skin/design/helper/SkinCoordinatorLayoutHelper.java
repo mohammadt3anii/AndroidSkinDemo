@@ -31,6 +31,7 @@ public class SkinCoordinatorLayoutHelper extends SkinHelper<CoordinatorLayout> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -47,7 +48,7 @@ public class SkinCoordinatorLayoutHelper extends SkinHelper<CoordinatorLayout> {
      * 应用StatusBar背景资源
      */
     private void applySupportStatusBarBackground() {
-        if (statusBarBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(statusBarBackgroundResId)) return;
         String typeName = getTypeName(statusBarBackgroundResId);
         if (isColor(typeName)) {
             int color = getColor(statusBarBackgroundResId);

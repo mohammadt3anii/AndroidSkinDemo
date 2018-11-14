@@ -1,5 +1,6 @@
 package com.codearms.maoqiqi.skin.design.helper;
 
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
@@ -14,6 +15,7 @@ import com.codearms.maoqiqi.skin.helper.SkinHelper;
  */
 public class SkinFloatingActionButtonHelper extends SkinHelper<FloatingActionButton> {
 
+    private int backgroundTintResId = INVALID_RESOURCES;
     private int rippleColorResId = INVALID_RESOURCES;
 
     public SkinFloatingActionButtonHelper(FloatingActionButton view) {
@@ -30,23 +32,36 @@ public class SkinFloatingActionButtonHelper extends SkinHelper<FloatingActionBut
         } finally {
             a.recycle();
         }
+        updateSkin();
+    }
+
+    /**
+     *
+     */
+    private void applySupportBackgroundTint() {
+        // TODO: 18/10/28 待完善
     }
 
     /**
      * 应用水波纹颜色
      */
     private void applySupportRippleColor() {
-        if (rippleColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(rippleColorResId)) return;
         String typeName = getTypeName(rippleColorResId);
         if (isColor(typeName)) {
             int color = getColor(rippleColorResId);
             if (color == 0) return;
             view.setRippleColor(color);
+        } else if (isDrawable(typeName)) {
+            ColorStateList colorStateList = getColorStateList(rippleColorResId);
+            if (colorStateList == null) return;
+            view.setRippleColor(colorStateList.getDefaultColor());
         }
     }
 
     @Override
     public void updateSkin() {
+        applySupportBackgroundTint();
         applySupportRippleColor();
     }
 }

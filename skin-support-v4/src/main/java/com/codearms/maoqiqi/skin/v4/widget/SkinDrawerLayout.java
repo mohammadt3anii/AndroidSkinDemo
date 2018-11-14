@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 
 import com.codearms.maoqiqi.skin.helper.SkinViewHelper;
+import com.codearms.maoqiqi.skin.v4.helper.SkinDrawerLayoutHelper;
 import com.codearms.maoqiqi.skin.widget.Skinable;
 
 /**
@@ -21,6 +22,11 @@ public class SkinDrawerLayout extends DrawerLayout implements Skinable {
      */
     private SkinViewHelper skinViewHelper;
 
+    /**
+     * DrawerLayout更新皮肤帮助类
+     */
+    private SkinDrawerLayoutHelper skinDrawerLayoutHelper;
+
     public SkinDrawerLayout(@NonNull Context context) {
         this(context, null);
     }
@@ -33,6 +39,8 @@ public class SkinDrawerLayout extends DrawerLayout implements Skinable {
         super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
+        skinDrawerLayoutHelper = new SkinDrawerLayoutHelper(this);
+        skinDrawerLayoutHelper.loadFromAttribute(attrs, defStyleAttr);
     }
 
     @Override
@@ -44,9 +52,20 @@ public class SkinDrawerLayout extends DrawerLayout implements Skinable {
     }
 
     @Override
+    public void setStatusBarBackground(int resId) {
+        super.setStatusBarBackground(resId);
+        if (skinDrawerLayoutHelper != null) {
+            skinDrawerLayoutHelper.setSupportStatusBarBackground(resId);
+        }
+    }
+
+    @Override
     public void updateSkin() {
         if (skinViewHelper != null) {
             skinViewHelper.updateSkin();
+        }
+        if (skinDrawerLayoutHelper != null) {
+            skinDrawerLayoutHelper.updateSkin();
         }
     }
 }

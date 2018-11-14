@@ -49,13 +49,14 @@ public class SkinTabLayoutHelper extends SkinHelper<TabLayout> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
      * 应用背景资源
      */
     private void applySupportTabBackground() {
-        if (tabBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(tabBackgroundResId)) return;
         String typeName = getTypeName(tabBackgroundResId);
         if (isColor(typeName)) {
             int color = getColor(tabBackgroundResId);
@@ -72,12 +73,28 @@ public class SkinTabLayoutHelper extends SkinHelper<TabLayout> {
      * 应用Indicator颜色
      */
     private void applySupportTabIndicatorColor() {
-        if (tabIndicatorColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(tabIndicatorColorResId)) return;
         String typeName = getTypeName(tabIndicatorColorResId);
         if (isColor(typeName)) {
             int color = getColor(tabIndicatorColorResId);
             if (color == 0) return;
             view.setSelectedTabIndicatorColor(color);
+        } else if (isDrawable(typeName)) {
+            Drawable drawable = getDrawable(tabIndicatorColorResId);
+            if (drawable == null) return;
+            view.setSelectedTabIndicator(drawable);
+        }
+    }
+
+    private void obtainTabTextAppearance() {
+        if (tabTextAppearanceResId == INVALID_RESOURCES) return;
+        TypedArray a = view.getContext().obtainStyledAttributes(tabTextAppearanceResId, R.styleable.SkinTextAppearance);
+        try {
+            if (a.hasValue(R.styleable.SkinTextAppearance_android_textColor)) {
+                tabTextColorResId = a.getResourceId(R.styleable.SkinTextAppearance_android_textColor, INVALID_RESOURCES);
+            }
+        } finally {
+            a.recycle();
         }
     }
 
@@ -86,7 +103,8 @@ public class SkinTabLayoutHelper extends SkinHelper<TabLayout> {
      */
     private void applySupportTabTextColors() {
         ColorStateList colorStateList = null;
-        if (tabTextAppearanceResId != INVALID_RESOURCES) {
+        // TODO: 18/10/28 重新思考逻辑
+        if (!isNotNeedSkin(tabTextAppearanceResId)) {
             TypedArray a = view.getContext().obtainStyledAttributes(tabTextAppearanceResId, R.styleable.SkinTextAppearance);
             try {
                 if (a.hasValue(R.styleable.SkinTextAppearance_android_textColor)) {
@@ -97,7 +115,7 @@ public class SkinTabLayoutHelper extends SkinHelper<TabLayout> {
             }
         }
 
-        if (tabTextColorResId != INVALID_RESOURCES) {
+        if (isNotNeedSkin(tabTextColorResId)) {
             String typeName = getTypeName(tabTextColorResId);
             if (isColor(typeName)) {
                 colorStateList = getColorStateList(tabTextColorResId);
@@ -106,7 +124,7 @@ public class SkinTabLayoutHelper extends SkinHelper<TabLayout> {
             }
         }
 
-        if (tabSelectedTextColorResId != INVALID_RESOURCES) {
+        if (isNotNeedSkin(tabSelectedTextColorResId)) {
             String typeName = getTypeName(tabSelectedTextColorResId);
             if (isColor(typeName)) {
                 int tabSelectedTextColor = getColor(tabSelectedTextColorResId);

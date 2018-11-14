@@ -1,20 +1,19 @@
 package com.codearms.maoqiqi.skin.v7.widget;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 
 import com.codearms.maoqiqi.skin.helper.SkinViewHelper;
-import com.codearms.maoqiqi.skin.v7.helper.SkinRecyclerViewHelper;
+import com.codearms.maoqiqi.skin.v7.helper.SkinLinearLayoutCompatHelper;
 import com.codearms.maoqiqi.skin.widget.Skinable;
 
 /**
- * 定义SkinRecyclerView继承RecyclerView,实现Skinable接口,实现更新皮肤功能
+ * 定义SkinLinearLayoutCompat继承LinearLayoutCompat,实现Skinable接口,实现更新皮肤功能
  * Author: fengqi.mao.march@gmail.com
- * Date: 2018/9/21 11:30
+ * Date: 2018/10/14 22:04
  */
-public class SkinRecyclerView extends RecyclerView implements Skinable {
+public class SkinLinearLayoutCompat extends LinearLayoutCompat implements Skinable {
 
     /**
      * View更新皮肤帮助类
@@ -22,24 +21,24 @@ public class SkinRecyclerView extends RecyclerView implements Skinable {
     private SkinViewHelper skinViewHelper;
 
     /**
-     * RecyclerView更新皮肤帮助类
+     * LinearLayoutCompat更新皮肤帮助类
      */
-    private SkinRecyclerViewHelper skinRecyclerViewHelper;
+    private SkinLinearLayoutCompatHelper skinLinearLayoutCompatHelper;
 
-    public SkinRecyclerView(Context context) {
+    public SkinLinearLayoutCompat(Context context) {
         this(context, null);
     }
 
-    public SkinRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public SkinLinearLayoutCompat(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SkinRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SkinLinearLayoutCompat(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
-        skinRecyclerViewHelper = new SkinRecyclerViewHelper(this);
-        skinRecyclerViewHelper.loadFromAttribute(attrs, defStyleAttr);
+        skinLinearLayoutCompatHelper = new SkinLinearLayoutCompatHelper(this);
+        skinLinearLayoutCompatHelper.loadFromAttribute(attrs, defStyleAttr);
     }
 
     @Override
@@ -55,8 +54,8 @@ public class SkinRecyclerView extends RecyclerView implements Skinable {
         if (skinViewHelper != null) {
             skinViewHelper.updateSkin();
         }
-        if (skinRecyclerViewHelper != null) {
-            skinRecyclerViewHelper.updateSkin();
+        if (skinLinearLayoutCompatHelper != null) {
+            skinLinearLayoutCompatHelper.updateSkin();
         }
     }
 }

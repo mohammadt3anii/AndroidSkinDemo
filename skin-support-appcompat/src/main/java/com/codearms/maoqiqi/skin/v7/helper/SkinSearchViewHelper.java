@@ -64,6 +64,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
@@ -89,7 +90,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用Query背景
      */
     private void applySupportQueryBackground() {
-        if (queryBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(queryBackgroundResId)) return;
         String typeName = getTypeName(queryBackgroundResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -126,7 +127,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用Submit背景
      */
     private void applySupportSubmitBackground() {
-        if (submitBackgroundResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(submitBackgroundResId)) return;
         String typeName = getTypeName(submitBackgroundResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -163,7 +164,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用搜索Icon
      */
     private void applySupportSearchIcon() {
-        if (searchIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(searchIconResId)) return;
         String typeName = getTypeName(searchIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -199,7 +200,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用搜索提示Icon
      */
     private void applySupportSearchHintIcon() {
-        if (searchHintIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(searchHintIconResId)) return;
         String typeName = getTypeName(searchHintIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -236,7 +237,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用CloseIcon
      */
     private void applySupportCloseIcon() {
-        if (closeIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(closeIconResId)) return;
         String typeName = getTypeName(closeIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -273,7 +274,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用GoIcon
      */
     private void applySupportGoIcon() {
-        if (goIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(goIconResId)) return;
         String typeName = getTypeName(goIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -310,7 +311,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用VoiceIcon
      */
     private void applySupportVoiceIcon() {
-        if (voiceIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(voiceIconResId)) return;
         String typeName = getTypeName(voiceIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -347,7 +348,7 @@ public class SkinSearchViewHelper extends SkinHelper<SearchView> {
      * 应用CommitIcon
      */
     private void applySupportCommitIcon() {
-        if (commitIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(commitIconResId)) return;
         int id = getTargetResId(commitIconResId);
         if (id == 0) id = commitIconResId;
         setCommitIcon(view, id);

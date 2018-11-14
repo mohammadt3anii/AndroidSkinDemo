@@ -39,13 +39,14 @@ public class SkinExpandableListViewHelper extends SkinHelper<ExpandableListView>
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
      * 应用GroupIndicatorGroupIndicator
      */
     private void applySupportGroupIndicator() {
-        if (groupIndicatorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(groupIndicatorResId)) return;
         String typeName = getTypeName(groupIndicatorResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -63,7 +64,7 @@ public class SkinExpandableListViewHelper extends SkinHelper<ExpandableListView>
      * 应用ChildIndicator
      */
     private void applySupportChildIndicator() {
-        if (childIndicatorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(childIndicatorResId)) return;
         String typeName = getTypeName(childIndicatorResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -81,7 +82,7 @@ public class SkinExpandableListViewHelper extends SkinHelper<ExpandableListView>
      * 应用ChildDivider
      */
     private void applySupportChildDivider() {
-        if (childDividerResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(childDividerResId)) return;
         String typeName = getTypeName(childDividerResId);
         Drawable drawable = null;
         if (isColor(typeName)) {

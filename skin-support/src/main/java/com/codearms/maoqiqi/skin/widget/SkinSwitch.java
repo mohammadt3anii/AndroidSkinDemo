@@ -41,11 +41,8 @@ public class SkinSwitch extends Switch implements Skinable {
     }
 
     public SkinSwitch(Context context, AttributeSet attrs) {
-        this(context, attrs, android.R.attr.switchStyle);
-    }
-
-    public SkinSwitch(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(context, attrs);
+        int defStyleAttr = 0;
         skinViewHelper = new SkinViewHelper(this);
         skinViewHelper.loadFromAttribute(attrs, defStyleAttr);
         skinTextViewHelper = new SkinTextViewHelper(this);

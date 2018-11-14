@@ -30,7 +30,7 @@ public class SkinTextInputEditText extends TextInputEditText implements Skinable
     }
 
     public SkinTextInputEditText(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, android.support.v7.appcompat.R.attr.editTextStyle);
     }
 
     public SkinTextInputEditText(Context context, AttributeSet attrs, int defStyleAttr) {

@@ -7,8 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 
-import com.codearms.maoqiqi.skin.helper.SkinHelper;
 import com.codearms.maoqiqi.skin.appcompat.R;
+import com.codearms.maoqiqi.skin.helper.SkinHelper;
 
 import java.lang.reflect.Field;
 
@@ -65,13 +65,14 @@ public class SkinToolbarHelper extends SkinHelper<Toolbar> {
         } finally {
             a.recycle();
         }
+        updateSkin();
     }
 
     /**
      * 解析TitleTextAppearance,获取属性值
      */
     private void obtainTitleTextAppearance() {
-        if (titleTextAppearanceResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(titleTextAppearanceResId)) return;
         TypedArray a = view.getContext().obtainStyledAttributes(titleTextAppearanceResId, R.styleable.SkinTextAppearance);
         try {
             if (a.hasValue(R.styleable.SkinTextAppearance_android_textColor)) {
@@ -86,7 +87,7 @@ public class SkinToolbarHelper extends SkinHelper<Toolbar> {
      * 解析SubtitleTextAppearance,获取属性值
      */
     private void obtainSubtitleTextAppearance() {
-        if (subtitleTextAppearanceResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(subtitleTextAppearanceResId)) return;
         TypedArray a = view.getContext().obtainStyledAttributes(subtitleTextAppearanceResId, R.styleable.SkinTextAppearance);
         try {
             if (a.hasValue(R.styleable.SkinTextAppearance_android_textColor)) {
@@ -153,7 +154,7 @@ public class SkinToolbarHelper extends SkinHelper<Toolbar> {
      * 应用Title文本颜色
      */
     private void applySupportTitleTextColor() {
-        if (titleTextColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(titleTextColorResId)) return;
         String typeName = getTypeName(titleTextColorResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(titleTextColorResId);
@@ -166,7 +167,7 @@ public class SkinToolbarHelper extends SkinHelper<Toolbar> {
      * 应用Subtitle文本颜色
      */
     private void applySupportSubtitleTextColor() {
-        if (subtitleTextColorResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(subtitleTextColorResId)) return;
         String typeName = getTypeName(subtitleTextColorResId);
         if (isColor(typeName) || isDrawable(typeName)) {
             ColorStateList colorStateList = getColorStateList(titleTextColorResId);
@@ -179,7 +180,7 @@ public class SkinToolbarHelper extends SkinHelper<Toolbar> {
      * 应用Logo
      */
     private void applySupportLogo() {
-        if (logoResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(logoResId)) return;
         String typeName = getTypeName(logoResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -197,7 +198,7 @@ public class SkinToolbarHelper extends SkinHelper<Toolbar> {
      * 应用Navigation
      */
     private void applySupportNavigationIcon() {
-        if (navigationIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(navigationIconResId)) return;
         String typeName = getTypeName(navigationIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -221,6 +222,7 @@ public class SkinToolbarHelper extends SkinHelper<Toolbar> {
         try {
             String name = "mCollapseIcon";
             Field fCollapseIcon = Toolbar.class.getDeclaredField(name);
+            fCollapseIcon.setAccessible(true);
             fCollapseIcon.set(toolbar, drawable);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -233,7 +235,7 @@ public class SkinToolbarHelper extends SkinHelper<Toolbar> {
      * 应用CollapseIcon
      */
     private void applySupportCollapseIcon() {
-        if (collapseIconResId == INVALID_RESOURCES) return;
+        if (isNotNeedSkin(collapseIconResId)) return;
         String typeName = getTypeName(collapseIconResId);
         Drawable drawable = null;
         if (isColor(typeName)) {
@@ -251,7 +253,7 @@ public class SkinToolbarHelper extends SkinHelper<Toolbar> {
      *
      */
     private void applySupportPopupTheme() {
-
+        // TODO: 18/10/28 待完善
     }
 
     @Override

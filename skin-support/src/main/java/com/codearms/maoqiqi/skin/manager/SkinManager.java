@@ -11,8 +11,8 @@ import com.codearms.maoqiqi.skin.loader.LoadPlugInSkinTask;
 import com.codearms.maoqiqi.skin.observe.SkinObservable;
 
 import java.lang.ref.WeakReference;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.WeakHashMap;
 
 /**
@@ -55,7 +55,7 @@ public class SkinManager extends SkinObservable {
     /**
      * 保存所有实现{@link SkinLayoutInflater}接口的实例
      */
-    private Set<SkinLayoutInflater> skinLayoutInflaters = new HashSet<>();
+    private List<SkinLayoutInflater> skinLayoutInflaters = new ArrayList<>();
 
     /**
      * 当前实例对象
@@ -143,7 +143,7 @@ public class SkinManager extends SkinObservable {
      *
      * @return 集合
      */
-    public Set<SkinLayoutInflater> getSkinLayoutInflaters() {
+    public List<SkinLayoutInflater> getSkinLayoutInflaters() {
         return skinLayoutInflaters;
     }
 
@@ -154,7 +154,8 @@ public class SkinManager extends SkinObservable {
      * @return {@link SkinManager}实例对象
      */
     public SkinManager addLayoutInflater(SkinLayoutInflater layoutInflater) {
-        skinLayoutInflaters.add(layoutInflater);
+        // 新元素放置在首位,优先在后面添加的实例中匹配
+        skinLayoutInflaters.add(0, layoutInflater);
         return this;
     }
 
